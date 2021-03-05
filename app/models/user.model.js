@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
       carnet: {
         type: Sequelize.INTEGER
       },
+      rol: {
+        type: Sequelize.INTEGER
+      }
     });
   
     return User;

@@ -1,8 +1,8 @@
 const db = require("../models");
-const Rol = db.rols;
+const User = db.users;
 const Op = db.Sequelize.Op;
 
-// Crear y guardar un nuevo Rol
+// Crear y guardar un nuevo User
 exports.create = (req, res) => {
 
   // Validar
@@ -13,29 +13,34 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Crear un Rol
-  const rol = {
-    name: req.body.name
+  // Crear un User
+  const user = {
+    name: req.body.name,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,
+    carnet: req.body.carnet,
+    rol: req.body.rol
   };
 
-  // Guardar Rol en BD
-  Rol.create(rol)
+  // Guardar User en BD
+  User.create(user)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Ocurrió un error mientras se guardaba el rol en base de datos."
+          err.message || "Ocurrió un error mientras se guardaba el user en base de datos."
       });
     });
 };
 
-// Listar todos los roles
+// Listar todos los users
 exports.findAll = (req, res) => {
 
   
-    Rol.findAll()
+    User.findAll()
       .then(data => {
         res.send(data);
       })
@@ -47,84 +52,84 @@ exports.findAll = (req, res) => {
       });
   };
 
-// Buscar un rol por ID
+// Buscar un user por ID
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        Rol.findByPk(id)
+        User.findByPk(id)
           .then(data => {
             res.send(data);
           })
           .catch(err => {
             res.status(500).send({
-              message: "Ocurrió un error mientras se consultaba el rol " + id
+              message: "Ocurrió un error mientras se consultaba el User " + id
             });
           });
 };
 
-// Actualizar un rol por ID
+// Actualizar un User por ID
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Rol.update(req.body, {
+    User.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Rol actualizado correctamente."
+            message: "User actualizado correctamente."
           });
         } else {
           res.send({
-            message: `No se pudo actualizar el rol con el id=${id}. Es posible que el Rol no haya sido encontraodo o la petición esté vacía!`
+            message: `No se pudo actualizar el User con el id=${id}. Es posible que el User no haya sido encontraodo o la petición esté vacía!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ocurrió un error mientras se actualizaba el rol " + id
+          message: "Ocurrió un error mientras se actualizaba el User " + id
         });
       });
 };
 
-// Eliminar un rol por ID
+// Eliminar un User por ID
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    Rol.destroy({
+    User.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Rol eliminado correctamente!"
+            message: "User eliminado correctamente!"
           });
         } else {
           res.send({
-            message: `No se pudo eliminar el rol con el id=${id}. Es posible que el Rol no haya sido encontraodo o la petición esté vacía!`
+            message: `No se pudo eliminar el User con el id=${id}. Es posible que el User no haya sido encontraodo o la petición esté vacía!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ocurrió un error mientras se actualizaba el rol " + id
+          message: "Ocurrió un error mientras se actualizaba el User " + id
         });
       });
   };
 
-// Eliminar todos los rol
+// Eliminar todos los User
 exports.deleteAll = (req, res) => {
-    Rol.destroy({
+    User.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Roles elimnados correctamente!` });
+        res.send({ message: `${nums} Useres elimnados correctamente!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Ocurrió un error mientras se eliminaban los roles."
+            err.message || "Ocurrió un error mientras se eliminaban los Useres."
         });
       });
   };
