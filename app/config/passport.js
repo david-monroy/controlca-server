@@ -11,10 +11,10 @@ passport.use(new LocalStrategy({
     function(err, users) {
         if (err) { return done(err); }
         if (!users) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Usuario incorrecto' });
         }
         if (!users.password === password) {
-        return done(null, false, { message: 'Incorrect password.' });
+        return done(null, false, { message: 'Contraseña incorrecta' });
         }
         return done(null, users);
     });
