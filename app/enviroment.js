@@ -8,7 +8,8 @@ const env = {
     DB_PORT: process.env.DB_PORT,
     DB_USER: process.env.DB_USER,
     DB_PASSWORD: process.env.DB_PASSWORD,
-    DBMS: process.env.DBMS
+    DBMS: process.env.DBMS,
+    JWT_KEY: process.env.JWT_KEY
 };
 
 module.exports = env;

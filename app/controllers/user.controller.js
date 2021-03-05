@@ -22,6 +22,7 @@ exports.create = (req, res) => {
     carnet: req.body.carnet,
     rol: req.body.rol
   };
+  
 
   // Guardar User en BD
   User.create(user)
