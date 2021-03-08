@@ -11,6 +11,9 @@ module.exports = app => {
   
     // Listar un solo User por id
     router.get("/:id", users.findOne);
+
+    // Listar un solo User por email
+    router.get("/email/:email", users.findByEmail);
   
     // Actualizar un User por id
     router.put("/:id", users.update);

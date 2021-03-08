@@ -68,6 +68,21 @@ exports.findOne = (req, res) => {
           });
 };
 
+// Buscar un user por email
+exports.findByEmail = (req, res) => {
+  const email = req.params.email;
+
+  User.findAll({where: {email: email}})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se consultaba el User " + email
+      });
+    });
+};
+
 // Actualizar un User por ID
 exports.update = (req, res) => {
     const id = req.params.id;

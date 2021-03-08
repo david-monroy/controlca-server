@@ -51,7 +51,11 @@ exports.signin = (req, res) => {
         res.status(200).send({
           id: user.id,
           email: user.email,
-          accessToken: token
+          rol: user.rol,
+          name: user.name,
+          lastname: user.lastname,
+          carnet: user.carnet,
+          accessToken: token,
         });
     })
     .catch(err => {
