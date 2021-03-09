@@ -39,8 +39,6 @@ exports.create = (req, res) => {
 
 // Listar todos los users
 exports.findAll = (req, res) => {
-
-  
     User.findAll()
       .then(data => {
         res.send(data);
@@ -149,3 +147,4 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
+

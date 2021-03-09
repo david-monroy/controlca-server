@@ -11,6 +11,9 @@ module.exports = app => {
   
     // Listar un solo Rol por id
     router.get("/:id", rols.findOne);
+
+    // Listar un solo Rol por id
+    router.get("/name/:id", rols.findNameById);
   
     // Actualizar un Rol por id
     router.put("/:id", rols.update);

@@ -62,6 +62,21 @@ exports.findOne = (req, res) => {
           });
 };
 
+// Buscar un nombre de rol por ID
+exports.findNameById = (req, res) => {
+  const id = req.params.id;
+
+  Rol.findByPk(id)
+    .then(data => {
+      res.send(data.name);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se consultaba el rol " + id
+      });
+    });
+};
+
 // Actualizar un rol por ID
 exports.update = (req, res) => {
     const id = req.params.id;
