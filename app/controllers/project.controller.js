@@ -1,6 +1,7 @@
 const db = require("../models");
 const Project = db.projects;
 const Product = db.products;
+const Project_Product = db.project_products;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Project
@@ -39,7 +40,6 @@ exports.create = (req, res) => {
 // Listar todos los Projectes
 exports.findAll = (req, res) => {
 
-  
     Project.findAll({
       include: [
         {
@@ -47,7 +47,9 @@ exports.findAll = (req, res) => {
           as: "products",
           attributes: ["id", "name"],
           through: {
-            attributes: [],
+            attributes: [
+              "estimated_hours"
+            ],
           }
         },
       ],
@@ -157,27 +159,21 @@ exports.deleteAll = (req, res) => {
   };
 
   exports.addProduct = (req, res) => {
-    const projectId = req.body.project;
-    const productId = req.body.product;
 
-    return Project.findByPk(projectId)
-      .then((project) => {
-        if (!project) {
-          console.log("project not found!");
-          return null;
-        }
-        return Product.findByPk(productId).then((product) => {
-          if (!product) {
-            console.log("product not found!");
-            return null;
-          }
-  
-          project.addProduct(product);
-          console.log(`>> added product id=${product.id} to project id=${project.id}`);
-          return project;
-        });
-      })
-      .catch((err) => {
-        console.log(">> Error while adding product to project: ", err);
+    const pp = {
+      project_id: req.body.project,
+      product_id: req.body.product,
+      estimated_hours: req.body.estimated_hours
+    }
+
+    Project_Product.create(pp)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
       });
+    });
   };

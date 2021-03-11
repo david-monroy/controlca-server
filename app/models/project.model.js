@@ -15,6 +15,10 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.STRING,
           allowNull: false
         },
+        status: {
+          type: Sequelize.STRING,
+          default: "En proceso"
+        },
         leader: {
             type: Sequelize.INTEGER
         }
