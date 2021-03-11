@@ -14,6 +14,9 @@ module.exports = app => {
 
     // Agregar producto a proyecto
     router.post("/addProduct", projects.addProduct);
+
+    // Agregar usuario a proyecto
+    router.post("/addUser", projects.addUser);
   
     // Actualizar un project por id
     router.put("/:id", projects.update);

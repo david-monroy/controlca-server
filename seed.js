@@ -1,14 +1,17 @@
+const { response } = require("express");
 const db = require("./app/models");
 const Rol = db.rols;
 const User = db.users;
 const Project = db.projects;
 const Product = db.products;
+const Project_Product = db.project_products;
+const Project_User = db.project_users;
 
 // ROLES
 rolSeed = [
-    { name: "Administrador" },
-    { name: "Proyectos" },
-    { name: "Horas" },
+    { id: 1, name: "Administrador" },
+    { id: 2, name: "Proyectos" },
+    { id: 3, name: "Horas" },
 ]
 
 rolSeed.forEach(rol => {
@@ -28,27 +31,35 @@ rolSeed.forEach(rol => {
 // USUARIOS
 userSeed = [
     { 
+        id: 1,
         name: "David", 
         lastname: "Monroy", 
         email: "david@gmail.com", 
-        password: "admin",
+        password: "admins",
         carnet: "12345",
+        rol_id: 1
+    },
+    { 
+        id: 2,
+        name: "Jose", 
+        lastname: "Monroy", 
+        email: "jose@gmail.com", 
+        password: "admins",
+        carnet: "2222",
+        rol_id: 2
+    },
+    { 
+        id: 3,
+        name: "Bea", 
+        lastname: "Gil", 
+        email: "bea@gmail.com", 
+        password: "admins",
+        carnet: "3333",
         rol_id: 3
     }
 ]
 
 userSeed.forEach(user => {
-
-    // var rol_name = user.rol;
-    // var rol_id = null;
-
-    // Rol.findByName(rol_name)
-    // .then(response => {
-    //     this.rol_id = response;
-    // })
-    // .catch(e => {
-    //     console.log(e);
-    // });
 
     var data = {
         name: user.name,
@@ -75,7 +86,7 @@ projectSeed = [
         description: "Prueba de proyecto", 
         code: "001", 
         area: "Cables",
-        leader: 1
+        leader_id: 1
     }
 ]
 
@@ -85,7 +96,7 @@ projectSeed.forEach(project => {
         description: project.description,
         code: project.code,
         area: project.area,
-        leader: project.leader
+        leader_id: project.leader_id
       };
     
     Project.create(data)
@@ -110,6 +121,31 @@ productSeed.forEach(product => {
       };
     
     Product.create(data)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(e => {
+        console.log(e);
+    });
+});
+
+// PRODUCTOS EN PROYECTOS
+productProjectSeed = [
+    { 
+        estimated_hours: 5,
+        project_id: 1,
+        product_id: 1
+    }
+]
+
+productProjectSeed.forEach(pp => {
+    var data = {
+        estimated_hours: pp.estimated_hours,
+        project_id: pp.project_id,
+        product_id: pp.product_id,
+      };
+    
+    Project_Product.create(data)
     .then(response => {
         console.log(response)
     })

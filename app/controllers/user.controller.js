@@ -1,5 +1,7 @@
 const db = require("../models");
 const User = db.users;
+const Project = db.projects;
+const Project_User = db.project_users;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo User
@@ -40,7 +42,16 @@ exports.create = (req, res) => {
 // Listar todos los users
 exports.findAll = (req, res) => {
     User.findAll({
-      include: ["rol"]
+      include: ["rol",
+      {
+        model: Project,
+        as: "working_projects",
+        attributes: ["id", "name", "code"],
+        through: {
+          attributes: [],
+        }
+      },
+      ]
     })
       .then(data => {
         res.send(data);
@@ -57,7 +68,16 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        User.findByPk(id, { include: ["rol"] })
+        User.findByPk(id, { include: ["rol", "projects",
+        {
+          model: Project,
+          as: "working_projects",
+          attributes: ["id", "name", "code"],
+          through: {
+            attributes: [],
+          }
+        }
+      ] })
           .then(data => {
             res.send(data);
           })
@@ -72,7 +92,16 @@ exports.findOne = (req, res) => {
 exports.findByEmail = (req, res) => {
   const email = req.params.email;
 
-  User.findAll({where: {email: email}}, { include: ["rol"] })
+  User.findAll({where: {email: email}}, { include: ["rol", "projects",
+  {
+    model: Project,
+    as: "working_projects",
+    attributes: ["id", "name", "code"],
+    through: {
+      attributes: [],
+    }
+  }
+  ] })
     .then(data => {
       res.send(data);
     })

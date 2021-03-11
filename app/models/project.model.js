@@ -17,10 +17,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         status: {
           type: Sequelize.STRING,
-          default: "En proceso"
-        },
-        leader: {
-            type: Sequelize.INTEGER
+          defaultValue: "En proceso"
         }
       });
   

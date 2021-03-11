@@ -2,6 +2,8 @@ const db = require("../models");
 const Project = db.projects;
 const Product = db.products;
 const Project_Product = db.project_products;
+const Project_User = db.project_users;
+const User = db.users;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Project
@@ -52,6 +54,17 @@ exports.findAll = (req, res) => {
             ],
           }
         },
+        {
+          model: User,
+          as: "working_users",
+          attributes: ["id", "name", "lastname"],
+          through: {
+            attributes: [
+              "rol_in_project"
+            ],
+          }
+        },
+        "leader"
       ],
     })
       .then(data => {
@@ -78,7 +91,18 @@ exports.findOne = (req, res) => {
             through: {
               attributes: [],
             }
-          }
+          },
+          {
+            model: User,
+            as: "working_users",
+            attributes: ["id", "name", "lastname"],
+            through: {
+              attributes: [
+                "rol_in_project"
+              ],
+            }
+          },
+          "leader"
         ]
       })
           .then(data => {
@@ -167,6 +191,26 @@ exports.deleteAll = (req, res) => {
     }
 
     Project_Product.create(pp)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
+      });
+    });
+  };
+
+  exports.addUser = (req, res) => {
+
+    const pu = {
+      project_id: req.body.project,
+      worker_id: req.body.worker,
+      rol_in_project: req.body.rol_in_project
+    }
+
+    Project_User.create(pu)
     .then(data => {
       res.send(data);
     })
