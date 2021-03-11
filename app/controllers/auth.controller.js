@@ -31,17 +31,29 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "Usuario no encontrado" });
       }
 
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Contraseña inválida"
-        });
+      if(user.id != 1) {
+        var passwordIsValid = bcrypt.compareSync(
+          req.body.password,
+          user.password
+        );
+  
+        if (!passwordIsValid) {
+          return res.status(401).send({
+            accessToken: null,
+            message: "Contraseña inválida"
+          });
+        }
+      } else {
+        var passwordIsValid = false;
+        if (user.password == req.body.password) passwordIsValid = true
+  
+        if (!passwordIsValid) {
+          return res.status(401).send({
+            accessToken: null,
+            message: "Contraseña inválida"
+          });
       }
+    }
 
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
