@@ -20,7 +20,7 @@ exports.create = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     carnet: req.body.carnet,
-    rol: req.body.rol
+    rol_id: req.body.rol_id
   };
   
 
@@ -39,7 +39,9 @@ exports.create = (req, res) => {
 
 // Listar todos los users
 exports.findAll = (req, res) => {
-    User.findAll()
+    User.findAll({
+      include: ["rol"]
+    })
       .then(data => {
         res.send(data);
       })
@@ -55,7 +57,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        User.findByPk(id)
+        User.findByPk(id, { include: ["rol"] })
           .then(data => {
             res.send(data);
           })
@@ -70,7 +72,7 @@ exports.findOne = (req, res) => {
 exports.findByEmail = (req, res) => {
   const email = req.params.email;
 
-  User.findAll({where: {email: email}})
+  User.findAll({where: {email: email}}, { include: ["rol"] })
     .then(data => {
       res.send(data);
     })

@@ -21,5 +21,14 @@ db.sequelize = sequelize;
 
 db.rols = require("./rol.model.js")(sequelize, Sequelize);
 db.users = require("./user.model.js")(sequelize, Sequelize);
+db.products = require("./product.model.js")(sequelize, Sequelize);
+db.projects = require("./project.model.js")(sequelize, Sequelize);
+
+db.rols.hasMany(db.users, { as: "users" });
+
+db.users.belongsTo(db.rols, {
+  foreignKey: "rol_id",
+  as: "rol",
+});
 
 module.exports = db;

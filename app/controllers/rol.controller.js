@@ -33,9 +33,9 @@ exports.create = (req, res) => {
 
 // Listar todos los roles
 exports.findAll = (req, res) => {
-
-  
-    Rol.findAll()
+    Rol.findAll({
+      include: ["users"]
+    })
       .then(data => {
         res.send(data);
       })
@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        Rol.findByPk(id)
+        Rol.findByPk(id, { include: ["users"] })
           .then(data => {
             res.send(data);
           })
@@ -69,6 +69,21 @@ exports.findNameById = (req, res) => {
   Rol.findByPk(id)
     .then(data => {
       res.send(data.name);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se consultaba el rol " + id
+      });
+    });
+};
+
+// Buscar un nombre de rol por ID
+exports.findByName = (req, res) => {
+  const name = req.body.name;
+
+  Rol.findOne({where: {name: name}})
+    .then(data => {
+      res.send(data.id);
     })
     .catch(err => {
       res.status(500).send({

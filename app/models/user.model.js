@@ -23,10 +23,6 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.INTEGER,
           unique: true,
           allowNull: false
-        },
-        rol: {
-          type: Sequelize.INTEGER,
-          allowNull: false
         }
       }, {
         instanceMethods: {

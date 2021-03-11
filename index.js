@@ -27,8 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middlewares
-
-
 app.set('key', config.key);
 
 // simple route
