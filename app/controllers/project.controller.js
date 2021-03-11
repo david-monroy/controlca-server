@@ -1,5 +1,6 @@
 const db = require("../models");
 const Project = db.projects;
+const Product = db.products;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Project
@@ -39,7 +40,18 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
 
   
-    Project.findAll()
+    Project.findAll({
+      include: [
+        {
+          model: Product,
+          as: "products",
+          attributes: ["id", "name"],
+          through: {
+            attributes: [],
+          }
+        },
+      ],
+    })
       .then(data => {
         res.send(data);
       })
@@ -55,7 +67,18 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        Project.findByPk(id)
+        Project.findByPk(id, {
+        include: [
+            {
+            model: Product,
+            as: "products",
+            attributes: ["id", "name"],
+            through: {
+              attributes: [],
+            }
+          }
+        ]
+      })
           .then(data => {
             res.send(data);
           })
@@ -130,5 +153,31 @@ exports.deleteAll = (req, res) => {
           message:
             err.message || "Ocurrió un error mientras se eliminaban los Projects."
         });
+      });
+  };
+
+  exports.addProduct = (req, res) => {
+    const projectId = req.body.project;
+    const productId = req.body.product;
+
+    return Project.findByPk(projectId)
+      .then((project) => {
+        if (!project) {
+          console.log("project not found!");
+          return null;
+        }
+        return Product.findByPk(productId).then((product) => {
+          if (!product) {
+            console.log("product not found!");
+            return null;
+          }
+  
+          project.addProduct(product);
+          console.log(`>> added product id=${product.id} to project id=${project.id}`);
+          return project;
+        });
+      })
+      .catch((err) => {
+        console.log(">> Error while adding product to project: ", err);
       });
   };

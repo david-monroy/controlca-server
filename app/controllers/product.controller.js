@@ -1,5 +1,6 @@
 const db = require("../models");
 const Product = db.products;
+const Project = db.projects;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Product
@@ -31,10 +32,25 @@ exports.create = (req, res) => {
     });
 };
 
-// Listar todos los Productes
+// Listar todos los Productos
 exports.findAll = (req, res) => {
 
-    Product.findAll()
+    Product.findAll({
+      include: [
+        {
+          model: Project,
+          as: "projects",
+          attributes: ["id", "name", "code"],
+          through: {
+            attributes: [],
+          },
+          // through: {
+          //   attributes: ["project_id", "product_id"],
+          // },
+        },
+      ],
+    }
+    )
       .then(data => {
         res.send(data);
       })
@@ -50,7 +66,21 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        Product.findByPk(id)
+        Product.findByPk(id, {
+          include: [
+            {
+              model: Project,
+              as: "projects",
+              attributes: ["id", "name", "code"],
+              through: {
+                attributes: [],
+              },
+              // through: {
+              //   attributes: ["project_id", "product_id"],
+              // },
+            },
+          ],
+        })
           .then(data => {
             res.send(data);
           })
