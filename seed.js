@@ -13,21 +13,21 @@ rolSeed = [
     { id: 2, name: "Proyectos" },
     { id: 3, name: "Horas" },
 ]
-
-rolSeed.forEach(rol => {
-    var data = {
-        name: rol.name,
-      };
-    
-    Rol.create(data)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(e => {
-        console.log(e);
+function insertRoles(rolSeed){
+    rolSeed.forEach(rol => {
+        var data = {
+            name: rol.name,
+          };
+        
+        Rol.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
     });
-});
-
+}
 // USUARIOS
 userSeed = [
     { 
@@ -58,27 +58,27 @@ userSeed = [
         rol_id: 3
     }
 ]
+function insertUsers(userSeed){
+    userSeed.forEach(user => {
 
-userSeed.forEach(user => {
-
-    var data = {
-        name: user.name,
-        lastname: user.lastname,
-        email: user.email,
-        carnet: user.carnet,
-        rol_id: user.rol_id,
-        password: user.password
-      };
-    
-    User.create(data)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(e => {
-        console.log(e);
+        var data = {
+            name: user.name,
+            lastname: user.lastname,
+            email: user.email,
+            carnet: user.carnet,
+            rol_id: user.rol_id,
+            password: user.password
+          };
+        
+        User.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
     });
-});
-
+}
 // PROYECTOS
 projectSeed = [
     { 
@@ -89,46 +89,46 @@ projectSeed = [
         leader_id: 1
     }
 ]
-
-projectSeed.forEach(project => {
-    var data = {
-        name: project.name,
-        description: project.description,
-        code: project.code,
-        area: project.area,
-        leader_id: project.leader_id
-      };
-    
-    Project.create(data)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(e => {
-        console.log(e);
+function insertProjects(projectSeed){
+    projectSeed.forEach(project => {
+        var data = {
+            name: project.name,
+            description: project.description,
+            code: project.code,
+            area: project.area,
+            leader_id: project.leader_id
+          };
+        
+        Project.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
     });
-});
-
+}
 // PRODUCTOS
 productSeed = [
     { 
         name: "Primer Producto"
     }
 ]
-
-productSeed.forEach(product => {
-    var data = {
-        name: product.name
-      };
-    
-    Product.create(data)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(e => {
-        console.log(e);
+function insertProducts(productSeed){
+    productSeed.forEach(product => {
+        var data = {
+            name: product.name
+          };
+        
+        Product.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
     });
-});
-
+}
 // PRODUCTOS EN PROYECTOS
 productProjectSeed = [
     { 
@@ -137,19 +137,52 @@ productProjectSeed = [
         product_id: 1
     }
 ]
-
-productProjectSeed.forEach(pp => {
-    var data = {
-        estimated_hours: pp.estimated_hours,
-        project_id: pp.project_id,
-        product_id: pp.product_id,
-      };
-    
-    Project_Product.create(data)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(e => {
-        console.log(e);
+function insertProductProjects(productProjectSeed){
+    productProjectSeed.forEach(pp => {
+        var data = {
+            estimated_hours: pp.estimated_hours,
+            project_id: pp.project_id,
+            product_id: pp.product_id,
+          };
+        
+        Project_Product.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
     });
-});
+}
+// USUARIOS EN PROYECTOS
+userProjectSeed = [
+    { 
+        rol_in_project: "Gerente",
+        worker_id: 2,
+        project_id: 1
+    }
+]
+function insertUserProjects(userProjectSeed){
+    userProjectSeed.forEach(pp => {
+        var data = {
+            rol_in_project: pp.rol_in_project,
+            worker_id: pp.worker_id,
+            project_id: pp.project_id,
+          };
+        
+        Project_User.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    });
+}
+
+insertRoles(rolSeed);
+insertUsers(userSeed);
+insertProjects(projectSeed);
+insertProducts(productSeed);
+insertProductProjects(productProjectSeed);
+insertUserProjects(userProjectSeed);
