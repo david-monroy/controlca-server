@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
     email: req.body.email,
     name: req.body.name,
     lastname: req.body.lastname,
-    rol: req.body.rol,
+    rol_id: req.body.rol_id,
     carnet: req.body.carnet,
     password: bcrypt.hashSync(req.body.password)
   })
@@ -31,7 +31,7 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "Usuario no encontrado" });
       }
 
-      if(user.id != 1) {
+      if(user.id > 3) {
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           user.password
@@ -59,11 +59,10 @@ exports.signin = (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-
         res.status(200).send({
           id: user.id,
           email: user.email,
-          rol: user.rol,
+          rol_id: user.rol_id,
           name: user.name,
           lastname: user.lastname,
           carnet: user.carnet,

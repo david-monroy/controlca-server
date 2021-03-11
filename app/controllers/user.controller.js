@@ -48,7 +48,7 @@ exports.findAll = (req, res) => {
         as: "working_projects",
         attributes: ["id", "name", "code"],
         through: {
-          attributes: [],
+          attributes: ["rol_in_project"],
         }
       },
       ]
