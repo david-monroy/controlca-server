@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     description: req.body.description,
     code: req.body.code,
     area: req.body.area,
-    leader: req.body.leader
+    leader_id: req.body.leader
   };
 
   // Guardar Project en BD
