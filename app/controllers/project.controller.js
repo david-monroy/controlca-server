@@ -89,7 +89,9 @@ exports.findOne = (req, res) => {
             as: "products",
             attributes: ["id", "name"],
             through: {
-              attributes: [],
+              attributes: [
+                "estimated_hours"
+              ],
             }
           },
           {
@@ -113,6 +115,45 @@ exports.findOne = (req, res) => {
               message: "Ocurrió un error mientras se consultaba el Project " + id
             });
           });
+};
+
+// Buscar un Project por ID
+exports.findByLeader = (req, res) => {
+  const leader_id = req.params.id;
+
+  Project.findAll({where: {leader_id: leader_id}, 
+  include: [
+      {
+      model: Product,
+      as: "products",
+      attributes: ["id", "name"],
+      through: {
+        attributes: [
+          "estimated_hours"
+        ],
+      }
+    },
+    {
+      model: User,
+      as: "working_users",
+      attributes: ["id", "name", "lastname"],
+      through: {
+        attributes: [
+          "rol_in_project"
+        ],
+      }
+    },
+    "leader"
+  ]
+})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se consultaba el Project " + id
+      });
+    });
 };
 
 // Actualizar un Project por ID

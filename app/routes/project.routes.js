@@ -12,6 +12,9 @@ module.exports = app => {
     // Listar un solo project por id
     router.get("/:id", projects.findOne);
 
+    // Listar un solo project por líder
+    router.get("/leader/:id", projects.findByLeader);
+
     // Agregar producto a proyecto
     router.post("/addProduct", projects.addProduct);
 

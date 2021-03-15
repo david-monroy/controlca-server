@@ -41,18 +41,18 @@ userSeed = [
     },
     { 
         id: 2,
-        name: "Jose", 
-        lastname: "Monroy", 
-        email: "jose@gmail.com", 
+        name: "Pedro", 
+        lastname: "Pérez", 
+        email: "pedro@gmail.com", 
         password: "admins",
         carnet: "2222",
         rol_id: 2
     },
     { 
         id: 3,
-        name: "Bea", 
-        lastname: "Gil", 
-        email: "bea@gmail.com", 
+        name: "María", 
+        lastname: "Martínez", 
+        email: "maria@gmail.com", 
         password: "admins",
         carnet: "3333",
         rol_id: 3
