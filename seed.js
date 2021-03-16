@@ -134,7 +134,8 @@ productProjectSeed = [
     { 
         estimated_hours: 5,
         project_id: 1,
-        product_id: 1
+        product_id: 1,
+        consecutive: 1,
     }
 ]
 function insertProductProjects(productProjectSeed){

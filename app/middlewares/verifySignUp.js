@@ -2,16 +2,16 @@ const db = require("../models");
 const Rol = db.rols;
 const User = db.users;
 
-checkDuplicateEmail = (req, res, next) => {
-  // Email
+checkDuplicateUsername = (req, res, next) => {
+  // Username
     User.findOne({
       where: {
-        email: req.body.email
+        username: req.body.username
       }
     }).then(user => {
       if (user) {
         res.status(400).send({
-          message: "Email ya registrado"
+          message: "Username ya registrado"
         });
         return;
       }
@@ -21,7 +21,7 @@ checkDuplicateEmail = (req, res, next) => {
 
 
 const verifySignUp = {
-  checkDuplicateEmail: checkDuplicateEmail
+  checkDuplicateUsername: checkDuplicateUsername
 };
 
 module.exports = verifySignUp;

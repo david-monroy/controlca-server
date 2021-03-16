@@ -5,9 +5,9 @@ const User = require('../models/user.model');
 
 // Configuración de Autenticación
 passport.use(new LocalStrategy({
-    usernameField: 'email'
-}, async (email, passport, done) => {
-    await User.findOne({email: email},
+    usernameField: 'username'
+}, async (username, passport, done) => {
+    await User.findOne({username: username},
     function(err, users) {
         if (err) { return done(err); }
         if (!users) {
