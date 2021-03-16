@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
           },
-        rol_in_project: {
+        roster: {
           type: Sequelize.STRING,
         }
       });

@@ -7,6 +7,10 @@ module.exports = (sequelize, Sequelize) => {
           },
         estimated_hours: {
           type: Sequelize.INTEGER,
+        },
+        consecutive: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
         }
       });
   

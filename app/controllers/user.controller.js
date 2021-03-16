@@ -19,7 +19,7 @@ exports.create = (req, res) => {
   const user = {
     name: req.body.name,
     lastname: req.body.lastname,
-    email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
     carnet: req.body.carnet,
     rol_id: req.body.rol_id
@@ -88,11 +88,11 @@ exports.findOne = (req, res) => {
           });
 };
 
-// Buscar un user por email
-exports.findByEmail = (req, res) => {
-  const email = req.params.email;
+// Buscar un user por username
+exports.findByUsername = (req, res) => {
+  const username = req.params.username;
 
-  User.findAll({where: {email: email}}, { include: ["rol", "projects",
+  User.findAll({where: {username: username}}, { include: ["rol", "projects",
   {
     model: Project,
     as: "working_projects",
@@ -107,7 +107,7 @@ exports.findByEmail = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Ocurrió un error mientras se consultaba el User " + email
+        message: "Ocurrió un error mientras se consultaba el User " + username
       });
     });
 };

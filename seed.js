@@ -34,7 +34,7 @@ userSeed = [
         id: 1,
         name: "David", 
         lastname: "Monroy", 
-        email: "david@gmail.com", 
+        username: "david.monroy", 
         password: "admins",
         carnet: "12345",
         rol_id: 1
@@ -43,7 +43,7 @@ userSeed = [
         id: 2,
         name: "Pedro", 
         lastname: "Pérez", 
-        email: "pedro@gmail.com", 
+        username: "pedro.perez", 
         password: "admins",
         carnet: "2222",
         rol_id: 2
@@ -52,7 +52,7 @@ userSeed = [
         id: 3,
         name: "María", 
         lastname: "Martínez", 
-        email: "maria@gmail.com", 
+        username: "maria.martinez", 
         password: "admins",
         carnet: "3333",
         rol_id: 3
@@ -64,7 +64,7 @@ function insertUsers(userSeed){
         var data = {
             name: user.name,
             lastname: user.lastname,
-            email: user.email,
+            username: user.username,
             carnet: user.carnet,
             rol_id: user.rol_id,
             password: user.password
@@ -157,7 +157,7 @@ function insertProductProjects(productProjectSeed){
 // USUARIOS EN PROYECTOS
 userProjectSeed = [
     { 
-        rol_in_project: "Gerente",
+        roster: "Gerente",
         worker_id: 2,
         project_id: 1
     }
@@ -165,7 +165,7 @@ userProjectSeed = [
 function insertUserProjects(userProjectSeed){
     userProjectSeed.forEach(pp => {
         var data = {
-            rol_in_project: pp.rol_in_project,
+            roster: pp.roster,
             worker_id: pp.worker_id,
             project_id: pp.project_id,
           };

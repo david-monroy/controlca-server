@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
           attributes: ["id", "name"],
           through: {
             attributes: [
-              "estimated_hours"
+              "estimated_hours", "consecutive"
             ],
           }
         },
@@ -60,7 +60,7 @@ exports.findAll = (req, res) => {
           attributes: ["id", "name", "lastname"],
           through: {
             attributes: [
-              "rol_in_project"
+              "roster"
             ],
           }
         },
@@ -90,7 +90,7 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name"],
             through: {
               attributes: [
-                "estimated_hours"
+                "estimated_hours", "consecutive"
               ],
             }
           },
@@ -100,7 +100,7 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name", "lastname"],
             through: {
               attributes: [
-                "rol_in_project"
+                "roster"
               ],
             }
           },
@@ -129,7 +129,7 @@ exports.findByLeader = (req, res) => {
       attributes: ["id", "name"],
       through: {
         attributes: [
-          "estimated_hours"
+          "estimated_hours", "consecutive"
         ],
       }
     },
@@ -139,7 +139,7 @@ exports.findByLeader = (req, res) => {
       attributes: ["id", "name", "lastname"],
       through: {
         attributes: [
-          "rol_in_project"
+          "roster"
         ],
       }
     },
@@ -160,7 +160,15 @@ exports.findByLeader = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Project.update(req.body, {
+    const project = {
+      name: req.body.name,
+      description: req.body.description,
+      code: req.body.code,
+      area: req.body.area,
+      leader_id: req.body.leader
+    }
+
+    Project.update(project, {
       where: { id: id }
     })
       .then(num => {
@@ -228,7 +236,8 @@ exports.deleteAll = (req, res) => {
     const pp = {
       project_id: req.body.project,
       product_id: req.body.product,
-      estimated_hours: req.body.estimated_hours
+      estimated_hours: req.body.estimated_hours,
+      consecutive: req.body.consecutive
     }
 
     Project_Product.create(pp)
@@ -243,12 +252,44 @@ exports.deleteAll = (req, res) => {
     });
   };
 
+  exports.updateProduct = (req, res) => {
+  
+    const id = req.params.id;
+
+    const pp = {
+      project_id: req.body.project,
+      product_id: req.body.product,
+      estimated_hours: req.body.estimated_hours,
+      consecutive: req.body.consecutive
+    }
+
+    Project_Product.update(pp, {
+      where: { id: id }
+    })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Project actualizado correctamente."
+        });
+      } else {
+        res.send({
+          message: `No se pudo actualizar el Project con el id=${id}. Es posible que el Project no haya sido encontraodo o la petición esté vacía!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se actualizaba el Project " + id
+      });
+    });
+  };
+
   exports.addUser = (req, res) => {
 
     const pu = {
       project_id: req.body.project,
       worker_id: req.body.worker,
-      rol_in_project: req.body.rol_in_project
+      roster: req.body.roster
     }
 
     Project_User.create(pu)
@@ -259,6 +300,37 @@ exports.deleteAll = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
+      });
+    });
+  };
+
+  exports.updateUser = (req, res) => {
+
+    const id = req.params.id;
+
+    const pu = {
+      project_id: req.body.project,
+      worker_id: req.body.worker,
+      roster: req.body.roster
+    }
+
+    Project_User.update(pu, {
+      where: { id: id }
+    })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Project actualizado correctamente."
+        });
+      } else {
+        res.send({
+          message: `No se pudo actualizar el Project con el id=${id}. Es posible que el Project no haya sido encontraodo o la petición esté vacía!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se actualizaba el Project " + id
       });
     });
   };

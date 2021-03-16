@@ -9,6 +9,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         code: {
           type: Sequelize.STRING,
+          unique: true,
           allowNull: false
         },
         area: {
