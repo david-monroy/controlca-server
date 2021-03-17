@@ -142,6 +142,7 @@ function insertProductProjects(productProjectSeed){
     productProjectSeed.forEach(pp => {
         var data = {
             estimated_hours: pp.estimated_hours,
+            consecutive: pp.consecutive,
             project_id: pp.project_id,
             product_id: pp.product_id,
           };
