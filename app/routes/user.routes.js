@@ -8,6 +8,9 @@ module.exports = app => {
   
     // Listar todos los User
     router.get("/", users.findAll);
+
+    // Listar todos los User de un rol
+    router.get("/rol/:rol_id", users.findByRol);
   
     // Listar un solo User por id
     router.get("/:id", users.findOne);

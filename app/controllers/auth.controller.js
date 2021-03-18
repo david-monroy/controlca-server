@@ -28,7 +28,7 @@ exports.signin = (req, res) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: "Usuario no encontrado" });
+        return res.status(404).send({ message: "¡Usuario no encontrado!" });
       }
 
       if(user.id > 3) {
@@ -40,7 +40,7 @@ exports.signin = (req, res) => {
         if (!passwordIsValid) {
           return res.status(401).send({
             accessToken: null,
-            message: "Contraseña inválida"
+            message: "¡Contraseña inválida!"
           });
         }
       } else {
@@ -50,7 +50,7 @@ exports.signin = (req, res) => {
         if (!passwordIsValid) {
           return res.status(401).send({
             accessToken: null,
-            message: "Contraseña inválida"
+            message: "¡Contraseña inválida!"
           });
       }
     }

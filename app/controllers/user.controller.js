@@ -64,6 +64,35 @@ exports.findAll = (req, res) => {
       });
   };
 
+  // Listar todos los users
+exports.findByRol = (req, res) => {
+  const rol_id = req.params.rol_id;
+  User.findAll({
+    where: {
+      rol_id: rol_id
+    },
+    include: ["rol",
+    {
+      model: Project,
+      as: "working_projects",
+      attributes: ["id", "name", "code"],
+      through: {
+        attributes: ["roster"],
+      }
+    },
+    ]
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se consultaba en base de datos."
+      });
+    });
+};
+
 // Buscar un user por ID
 exports.findOne = (req, res) => {
         const id = req.params.id;
