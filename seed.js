@@ -111,46 +111,57 @@ function insertProjects(projectSeed){
 // PRODUCTOS
 productSeed = [
     { 
+        id: 1,
         code: "001",
         name: "Generales"
     },
     { 
+        id: 2,
         code: "010",
         name: "Cableado Estructurado"
     },
     { 
+        id: 3,
         code: "020",
         name: "Telefonía"
     },
     { 
+        id: 4,
         code: "030",
         name: "Datos"
     },
     { 
+        id: 5,
         code: "040",
         name: "CCTV"
     },
     { 
+        id: 6,
         code: "050",
         name: "Control de acceso"
     },
     { 
+        id: 7,
         code: "060",
         name: "Intrusión"
     },
     { 
+        id: 8,
         code: "070",
         name: "Detección de incendios"
     },
     { 
+        id: 9,
         code: "080",
         name: "Sonorización"
     },
     { 
+        id: 10,
         code: "090",
         name: "Edificio Inteligente"
     },
     { 
+        id: 11,
         code: "100",
         name: "Otros"
     },
