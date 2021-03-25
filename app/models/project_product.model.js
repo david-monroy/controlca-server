@@ -8,10 +8,12 @@ module.exports = (sequelize, Sequelize) => {
         estimated_hours: {
           type: Sequelize.INTEGER,
         },
-        consecutive: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-        }
+        area: {
+          type: Sequelize.STRING,
+        },
+        observations: {
+          type: Sequelize.STRING
+        },
       });
   
     return Project_Product;

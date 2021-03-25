@@ -12,8 +12,8 @@ module.exports = (sequelize, Sequelize) => {
           unique: true,
           allowNull: false
         },
-        area: {
-          type: Sequelize.STRING,
+        areas: {
+          type: Sequelize.INTEGER,
           allowNull: false
         },
         status: {

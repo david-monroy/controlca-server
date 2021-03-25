@@ -85,7 +85,7 @@ projectSeed = [
         name: "Proyecto Inicial", 
         description: "Prueba de proyecto", 
         code: "001", 
-        area: "Cables",
+        areas: 1,
         leader_id: 1
     }
 ]
@@ -95,7 +95,7 @@ function insertProjects(projectSeed){
             name: project.name,
             description: project.description,
             code: project.code,
-            area: project.area,
+            areas: project.areas,
             leader_id: project.leader_id
           };
         
@@ -111,12 +111,54 @@ function insertProjects(projectSeed){
 // PRODUCTOS
 productSeed = [
     { 
-        name: "Primer Producto"
-    }
+        code: "001",
+        name: "Generales"
+    },
+    { 
+        code: "010",
+        name: "Cableado Estructurado"
+    },
+    { 
+        code: "020",
+        name: "Telefonía"
+    },
+    { 
+        code: "030",
+        name: "Datos"
+    },
+    { 
+        code: "040",
+        name: "CCTV"
+    },
+    { 
+        code: "050",
+        name: "Control de acceso"
+    },
+    { 
+        code: "060",
+        name: "Intrusión"
+    },
+    { 
+        code: "070",
+        name: "Detección de incendios"
+    },
+    { 
+        code: "080",
+        name: "Sonorización"
+    },
+    { 
+        code: "090",
+        name: "Edificio Inteligente"
+    },
+    { 
+        code: "100",
+        name: "Otros"
+    },
 ]
 function insertProducts(productSeed){
     productSeed.forEach(product => {
         var data = {
+            code: product.code,
             name: product.name
           };
         
@@ -135,14 +177,14 @@ productProjectSeed = [
         estimated_hours: 5,
         project_id: 1,
         product_id: 1,
-        consecutive: 1,
+        area: "A01",
     }
 ]
 function insertProductProjects(productProjectSeed){
     productProjectSeed.forEach(pp => {
         var data = {
             estimated_hours: pp.estimated_hours,
-            consecutive: pp.consecutive,
+            area: pp.area,
             project_id: pp.project_id,
             product_id: pp.product_id,
           };

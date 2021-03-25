@@ -22,7 +22,7 @@ exports.create = (req, res) => {
     name: req.body.name,
     description: req.body.description,
     code: req.body.code,
-    area: req.body.area,
+    areas: req.body.areas,
     leader_id: req.body.leader
   };
 
@@ -47,10 +47,10 @@ exports.findAll = (req, res) => {
         {
           model: Product,
           as: "products",
-          attributes: ["id", "name"],
+          attributes: ["id", "name", "code"],
           through: {
             attributes: [
-              "estimated_hours", "consecutive"
+              "estimated_hours", "observations", "area"
             ],
           }
         },
@@ -87,10 +87,10 @@ exports.findOne = (req, res) => {
             {
             model: Product,
             as: "products",
-            attributes: ["id", "name"],
+            attributes: ["id", "name", "code"],
             through: {
               attributes: [
-                "estimated_hours", "consecutive"
+                "estimated_hours", "observations", "area"
               ],
             }
           },
@@ -126,10 +126,10 @@ exports.findByLeader = (req, res) => {
       {
       model: Product,
       as: "products",
-      attributes: ["id", "name"],
+      attributes: ["id", "name", "code"],
       through: {
         attributes: [
-          "estimated_hours", "consecutive"
+          "estimated_hours", "observations", "area"
         ],
       }
     },
@@ -164,7 +164,7 @@ exports.update = (req, res) => {
       name: req.body.name,
       description: req.body.description,
       code: req.body.code,
-      area: req.body.area,
+      areas: req.body.areas,
       leader_id: req.body.leader
     }
 
@@ -237,7 +237,8 @@ exports.deleteAll = (req, res) => {
       project_id: req.body.project,
       product_id: req.body.product,
       estimated_hours: req.body.estimated_hours,
-      consecutive: req.body.consecutive
+      observations: req.body.observations,
+      area: req.body.area
     }
 
     Project_Product.create(pp)
@@ -260,7 +261,8 @@ exports.deleteAll = (req, res) => {
       project_id: req.body.project,
       product_id: req.body.product,
       estimated_hours: req.body.estimated_hours,
-      consecutive: req.body.consecutive
+      observations: req.body.observations,
+      area: req.body.area
     }
 
     Project_Product.update(pp, {
