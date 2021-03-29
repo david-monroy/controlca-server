@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.users;
 const Project = db.projects;
+const Offer = db.offers;
 const Project_User = db.project_users;
 const Op = db.Sequelize.Op;
 
@@ -51,6 +52,14 @@ exports.findAll = (req, res) => {
           attributes: ["roster"],
         }
       },
+      {
+        model: Offer,
+        as: "working_offers",
+        attributes: ["id", "name", "code", "number", "codification"],
+        through: {
+          attributes: ["roster"],
+        }
+      },
       ]
     })
       .then(data => {
@@ -80,6 +89,14 @@ exports.findByRol = (req, res) => {
         attributes: ["roster"],
       }
     },
+    {
+      model: Offer,
+      as: "working_offers",
+      attributes: ["id", "name", "code", "number", "codification"],
+      through: {
+        attributes: ["roster"],
+      }
+    },
     ]
   })
     .then(data => {
@@ -105,7 +122,15 @@ exports.findOne = (req, res) => {
           through: {
             attributes: [],
           }
-        }
+        },
+        {
+          model: Offer,
+          as: "working_offers",
+          attributes: ["id", "name", "code", "number", "codification"],
+          through: {
+            attributes: ["roster"],
+          }
+        },
       ] })
           .then(data => {
             res.send(data);
@@ -129,7 +154,15 @@ exports.findByUsername = (req, res) => {
     through: {
       attributes: [],
     }
-  }
+  },
+  {
+    model: Offer,
+    as: "working_offers",
+    attributes: ["id", "name", "code", "number", "codification"],
+    through: {
+      attributes: ["roster"],
+    }
+  },
   ] })
     .then(data => {
       res.send(data);

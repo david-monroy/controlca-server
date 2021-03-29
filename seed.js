@@ -6,6 +6,8 @@ const Project = db.projects;
 const Product = db.products;
 const Project_Product = db.project_products;
 const Project_User = db.project_users;
+const Offer = db.offers;
+const Offer_User = db.offer_users;
 
 // ROLES
 rolSeed = [
@@ -84,7 +86,7 @@ projectSeed = [
     { 
         name: "Proyecto Inicial", 
         description: "Prueba de proyecto", 
-        code: "001", 
+        code: "7001", 
         areas: 1,
         leader_id: 1
     }
@@ -234,6 +236,62 @@ function insertUserProjects(userProjectSeed){
         });
     });
 }
+// OFERTAS
+offerSeed = [
+    { 
+        name: "Oferta inicial", 
+        description: "Prueba de oferta", 
+        code: "9902",
+        number: "X301", 
+        codification: "902", 
+        leader_id: 1
+    }
+]
+function insertOffers(offerSeed){
+    offerSeed.forEach(offer => {
+        var data = {
+            name: offer.name,
+            description: offer.description,
+            code: offer.code,
+            number: offer.number,
+            codification: offer.codification,
+            leader_id: offer.leader_id
+          };
+        
+        Offer.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    });
+}
+// USUARIOS EN PROYECTOS
+userOfferSeed = [
+    { 
+        roster: "Gerente",
+        worker_id: 2,
+        offer_id: 1
+    }
+]
+function insertUserOffers(userOfferSeed){
+    userOfferSeed.forEach(pp => {
+        var data = {
+            roster: pp.roster,
+            worker_id: pp.worker_id,
+            offer_id: pp.offer_id,
+          };
+        
+        Offer_User.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    });
+}
 
 insertRoles(rolSeed);
 insertUsers(userSeed);
@@ -241,3 +299,5 @@ insertProjects(projectSeed);
 insertProducts(productSeed);
 insertProductProjects(productProjectSeed);
 insertUserProjects(userProjectSeed);
+insertOffers(offerSeed);
+insertUserOffers(userOfferSeed);
