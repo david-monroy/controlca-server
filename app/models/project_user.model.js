@@ -7,6 +7,10 @@ module.exports = (sequelize, Sequelize) => {
           },
         roster: {
           type: Sequelize.STRING,
+        },
+        hours_done: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0
         }
       });
   

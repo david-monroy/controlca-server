@@ -20,8 +20,7 @@ exports.create = (req, res) => {
     name: req.body.name,
     description: req.body.description,
     code: req.body.code,
-    number: req.body.number,
-    codification: req.body.codification,
+    department: req.body.department,
     leader_id: req.body.leader
   };
 

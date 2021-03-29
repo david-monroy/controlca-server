@@ -241,9 +241,8 @@ offerSeed = [
     { 
         name: "Oferta inicial", 
         description: "Prueba de oferta", 
-        code: "9902",
-        number: "X301", 
-        codification: "902", 
+        code: "X301",
+        department: "SIT", 
         leader_id: 1
     }
 ]
@@ -253,8 +252,7 @@ function insertOffers(offerSeed){
             name: offer.name,
             description: offer.description,
             code: offer.code,
-            number: offer.number,
-            codification: offer.codification,
+            department: offer.department,
             leader_id: offer.leader_id
           };
         

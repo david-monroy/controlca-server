@@ -11,11 +11,7 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.STRING,
           allowNull: false
         },
-        number: {
-            type: Sequelize.STRING,
-            allowNull: false
-          },
-        codification: {
+        department: {
           type: Sequelize.STRING,
           allowNull: false
         },
