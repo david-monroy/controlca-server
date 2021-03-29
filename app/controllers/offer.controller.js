@@ -1,6 +1,6 @@
 const db = require("../models");
 const Offer = db.offers;
-const Offer_User = db.offers_users;
+const Offer_User = db.offer_users;
 const User = db.users;
 const Op = db.Sequelize.Op;
 
