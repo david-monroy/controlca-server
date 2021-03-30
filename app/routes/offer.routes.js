@@ -20,6 +20,9 @@ module.exports = app => {
 
     // Actualizar usuario a proyecto
     router.put("/updateUser/:id", offers.updateUser);
+
+    // Cargar horas a oferta
+    router.post("/loadHour", offers.loadHour);
   
     // Actualizar un offer por id
     router.put("/:id", offers.update);

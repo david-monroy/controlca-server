@@ -77,6 +77,14 @@ exports.findAll = (req, res) => {
           attributes: ["roster", "hours_done"],
         }
       },
+      {
+        model: Offer,
+        as: "working_offers_load",
+        attributes: ["id", "name", "code", "department"],
+        through: {
+          attributes: ["date", "hours", "observations"],
+        }
+      },
       ]
     })
       .then(data => {
@@ -131,6 +139,14 @@ exports.findByRol = (req, res) => {
         attributes: ["roster", "hours_done"],
       }
     },
+    {
+      model: Offer,
+      as: "working_offers_load",
+      attributes: ["id", "name", "code", "department"],
+      through: {
+        attributes: ["date", "hours", "observations"],
+      }
+    },
     ]
   })
     .then(data => {
@@ -181,6 +197,14 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name", "code", "department"],
             through: {
               attributes: ["roster", "hours_done"],
+            }
+          },
+          {
+            model: Offer,
+            as: "working_offers_load",
+            attributes: ["id", "name", "code", "department"],
+            through: {
+              attributes: ["date", "hours", "observations"],
             }
           },
           ]
@@ -234,6 +258,14 @@ exports.findByUsername = (req, res) => {
         attributes: ["roster", "hours_done"],
       }
     },
+    {
+      model: Offer,
+      as: "working_offers_load",
+      attributes: ["id", "name", "code", "department"],
+      through: {
+        attributes: ["date", "hours", "observations"],
+      }
+    }, 
     ]
 })
     .then(data => {
