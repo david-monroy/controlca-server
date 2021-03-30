@@ -61,7 +61,7 @@ exports.findAll = (req, res) => {
           attributes: ["id", "name", "lastname"],
           through: {
             attributes: [
-              "roster"
+              "roster", "id", "hours_done"
             ],
           }
         },
@@ -112,7 +112,7 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name", "lastname"],
             through: {
               attributes: [
-                "roster"
+                "roster", "id", "hours_done"
               ],
             }
           },
@@ -161,7 +161,7 @@ exports.findByLeader = (req, res) => {
       attributes: ["id", "name", "lastname"],
       through: {
         attributes: [
-          "roster"
+          "roster", "id", "hours_done"
         ],
       }
     },
@@ -191,14 +191,6 @@ exports.findByLeader = (req, res) => {
 // Actualizar un Project por ID
 exports.update = (req, res) => {
     const id = req.params.id;
-
-    const project = {
-      name: req.body.name,
-      description: req.body.description,
-      code: req.body.code,
-      areas: req.body.areas,
-      leader_id: req.body.leader
-    }
 
     Project.update(project, {
       where: { id: id }
@@ -341,12 +333,6 @@ exports.deleteAll = (req, res) => {
   exports.updateUser = (req, res) => {
 
     const id = req.params.id;
-
-    const pu = {
-      project_id: req.body.project,
-      worker_id: req.body.worker,
-      roster: req.body.roster
-    }
 
     Project_User.update(pu, {
       where: { id: id }

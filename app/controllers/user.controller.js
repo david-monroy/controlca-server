@@ -46,7 +46,7 @@ exports.findAll = (req, res) => {
       include: [{
         model: Project,
         as: "projects",
-        attributes: [ "id", "name", "code"],
+        attributes: ["id", "name", "code", "areas", "status"],
       },
       {
         model: Offer,
@@ -56,7 +56,7 @@ exports.findAll = (req, res) => {
       {
         model: Project,
         as: "working_projects",
-        attributes: ["id", "name", "code"],
+        attributes: ["id", "name", "code", "areas", "status"],
         through: {
           attributes: ["roster", "hours_done"],
         }
@@ -64,7 +64,7 @@ exports.findAll = (req, res) => {
       {
         model: Project,
         as: "working_projects_load",
-        attributes: ["id", "name", "code"],
+        attributes: ["id", "name", "code", "areas", "status"],
         through: {
           attributes: ["date", "hours", "observations"],
         }
@@ -108,7 +108,7 @@ exports.findByRol = (req, res) => {
     include: [{
       model: Project,
       as: "projects",
-      attributes: [ "id", "name", "code"],
+      attributes: ["id", "name", "code", "areas", "status"],
     },
     {
       model: Offer,
@@ -118,7 +118,7 @@ exports.findByRol = (req, res) => {
     {
       model: Project,
       as: "working_projects",
-      attributes: ["id", "name", "code"],
+      attributes: ["id", "name", "code", "areas", "status"],
       through: {
         attributes: ["roster", "hours_done"],
       }
@@ -126,7 +126,7 @@ exports.findByRol = (req, res) => {
     {
       model: Project,
       as: "working_projects_load",
-      attributes: ["id", "name", "code"],
+      attributes: ["id", "name", "code", "areas", "status"],
       through: {
         attributes: ["date", "hours", "observations"],
       }
@@ -168,7 +168,7 @@ exports.findOne = (req, res) => {
           include: [{
             model: Project,
             as: "projects",
-            attributes: [ "id", "name", "code"],
+            attributes: ["id", "name", "code", "areas", "status"],
           },
           {
             model: Offer,
@@ -178,7 +178,7 @@ exports.findOne = (req, res) => {
           {
             model: Project,
             as: "working_projects",
-            attributes: ["id", "name", "code"],
+            attributes: ["id", "name", "code", "areas", "status"],
             through: {
               attributes: ["roster", "hours_done"],
             }
@@ -186,7 +186,7 @@ exports.findOne = (req, res) => {
           {
             model: Project,
             as: "working_projects_load",
-            attributes: ["id", "name", "code"],
+            attributes: ["id", "name", "code", "areas", "status"],
             through: {
               attributes: ["date", "hours", "observations"],
             }

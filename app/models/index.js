@@ -30,6 +30,7 @@ db.offer_users = require("./offer_user.model.js")(sequelize, Sequelize);
 db.project_user_loads = require("./project_user_load.model.js")(sequelize, Sequelize);
 db.offer_user_loads = require("./offer_user_load.model.js")(sequelize, Sequelize);
 
+
 // Relación 1 a Muchos entre Rol y Usuarios
 db.rols.hasMany(db.users, { foreignKey: "rol_id", as: "users" });
 db.users.belongsTo(db.rols, {
