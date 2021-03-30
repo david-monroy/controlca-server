@@ -62,14 +62,6 @@ exports.findAll = (req, res) => {
         }
       },
       {
-        model: Project,
-        as: "working_projects_load",
-        attributes: ["id", "name", "code", "areas", "status"],
-        through: {
-          attributes: ["date", "hours", "observations"],
-        }
-      },
-      {
         model: Offer,
         as: "working_offers",
         attributes: ["id", "name", "code", "department"],
@@ -121,14 +113,6 @@ exports.findByRol = (req, res) => {
       attributes: ["id", "name", "code", "areas", "status"],
       through: {
         attributes: ["roster", "hours_done"],
-      }
-    },
-    {
-      model: Project,
-      as: "working_projects_load",
-      attributes: ["id", "name", "code", "areas", "status"],
-      through: {
-        attributes: ["date", "hours", "observations"],
       }
     },
     {
@@ -184,14 +168,6 @@ exports.findOne = (req, res) => {
             }
           },
           {
-            model: Project,
-            as: "working_projects_load",
-            attributes: ["id", "name", "code", "areas", "status"],
-            through: {
-              attributes: ["date", "hours", "observations"],
-            }
-          },
-          {
             model: Offer,
             as: "working_offers",
             attributes: ["id", "name", "code", "department"],
@@ -240,14 +216,6 @@ exports.findByUsername = (req, res) => {
       attributes: ["id", "name", "code"],
       through: {
         attributes: ["roster", "hours_done"],
-      }
-    },
-    {
-      model: Project,
-      as: "working_projects_load",
-      attributes: ["id", "name", "code"],
-      through: {
-        attributes: ["date", "hours", "observations"],
       }
     },
     {

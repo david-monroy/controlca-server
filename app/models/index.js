@@ -29,7 +29,7 @@ db.offers = require("./offer.model.js")(sequelize, Sequelize);
 db.offer_users = require("./offer_user.model.js")(sequelize, Sequelize);
 db.project_user_loads = require("./project_user_load.model.js")(sequelize, Sequelize);
 db.offer_user_loads = require("./offer_user_load.model.js")(sequelize, Sequelize);
-
+db.loads = require("./load.model.js")(sequelize, Sequelize);
 
 // Relación 1 a Muchos entre Rol y Usuarios
 db.rols.hasMany(db.users, { foreignKey: "rol_id", as: "users" });
@@ -91,18 +91,6 @@ db.offers.belongsToMany(db.users, {
   foreignKey: "offer_id",
 });
 
-// Relación Muchos a Muchos entre Proyectos y Usuarios (Carga)
-db.users.belongsToMany(db.projects, {
-  through: db.project_user_loads,
-  as: "working_projects_load",
-  foreignKey: "worker_id",
-});
-
-db.projects.belongsToMany(db.users, {
-  through: db.project_user_loads,
-  as: "working_users_load",
-  foreignKey: "project_id",
-});
 
 // Relación Muchos a Muchos entre Ofertas y Usuarios (Carga)
 db.users.belongsToMany(db.offers, {
@@ -116,5 +104,16 @@ db.offers.belongsToMany(db.users, {
   as: "working_users_load",
   foreignKey: "offer_id",
 });
+
+
+
+// Relación 1 a Muchos entre Project_User y Loads
+db.project_users.hasMany(db.loads, { foreignKey: "project_user_id", as: "loads" });
+db.loads.belongsTo(db.project_users, {
+  foreignKey: "project_user_id",
+  as: "project_user",
+});
+
+
 
 module.exports = db;

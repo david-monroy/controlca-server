@@ -191,7 +191,7 @@ productProjectSeed = [
         project_id: 1,
         product_id: 1,
         area: "A01",
-    }
+    },
 ]
 function insertProductProjects(productProjectSeed){
     productProjectSeed.forEach(pp => {

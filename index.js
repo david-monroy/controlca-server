@@ -9,10 +9,10 @@ const app = express();
 const db = require("./app/models");
 // Descomentar si quiero eliminar la BD
 // -------------------------------------
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and re-sync db.");
-  });
-// db.sequelize.sync();
+// db.sequelize.sync({ force: true }).then(() => {
+//     console.log("Drop and re-sync db.");
+//   });
+db.sequelize.sync();
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -40,7 +40,8 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/project.routes')(app);
 require('./app/routes/product.routes')(app);
 require('./app/routes/offer.routes')(app);
-
+require('./app/routes/project_user.routes')(app);
+require('./app/routes/load.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

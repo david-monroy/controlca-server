@@ -65,16 +65,6 @@ exports.findAll = (req, res) => {
             ],
           }
         },
-        {
-          model: User,
-          as: "working_users_load",
-          attributes: ["id", "name", "lastname"],
-          through: {
-            attributes: [
-              "date", "hours", "observations"
-            ],
-          }
-        },
         
         "leader"
       ],
@@ -116,16 +106,7 @@ exports.findOne = (req, res) => {
               ],
             }
           },
-          {
-            model: User,
-            as: "working_users_load",
-            attributes: ["id", "name", "lastname"],
-            through: {
-              attributes: [
-                "date", "hours", "observations"
-              ],
-            }
-          },
+      
           "leader"
         ]
       })
@@ -165,16 +146,7 @@ exports.findByLeader = (req, res) => {
         ],
       }
     },
-    {
-      model: User,
-      as: "working_users_load",
-      attributes: ["id", "name", "lastname"],
-      through: {
-        attributes: [
-          "date", "hours", "observations"
-        ],
-      }
-    },
+  
     "leader"
   ]
 })
