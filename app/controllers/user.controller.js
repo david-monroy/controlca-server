@@ -43,21 +43,38 @@ exports.create = (req, res) => {
 // Listar todos los users
 exports.findAll = (req, res) => {
     User.findAll({
-      include: ["rol",
+      include: [{
+        model: Project,
+        as: "projects",
+        attributes: [ "id", "name", "code"],
+      },
+      {
+        model: Offer,
+        as: "offers",
+        attributes: [ "id", "name", "code"],
+      },
       {
         model: Project,
         as: "working_projects",
         attributes: ["id", "name", "code"],
         through: {
-          attributes: ["roster"],
+          attributes: ["roster", "hours_done"],
+        }
+      },
+      {
+        model: Project,
+        as: "working_projects_load",
+        attributes: ["id", "name", "code"],
+        through: {
+          attributes: ["date", "hours", "observations"],
         }
       },
       {
         model: Offer,
         as: "working_offers",
-        attributes: ["id", "name", "code", "number", "codification"],
+        attributes: ["id", "name", "code", "department"],
         through: {
-          attributes: ["roster"],
+          attributes: ["roster", "hours_done"],
         }
       },
       ]
@@ -80,21 +97,38 @@ exports.findByRol = (req, res) => {
     where: {
       rol_id: rol_id
     },
-    include: ["rol",
+    include: [{
+      model: Project,
+      as: "projects",
+      attributes: [ "id", "name", "code"],
+    },
+    {
+      model: Offer,
+      as: "offers",
+      attributes: [ "id", "name", "code"],
+    },
     {
       model: Project,
       as: "working_projects",
       attributes: ["id", "name", "code"],
       through: {
-        attributes: ["roster"],
+        attributes: ["roster", "hours_done"],
+      }
+    },
+    {
+      model: Project,
+      as: "working_projects_load",
+      attributes: ["id", "name", "code"],
+      through: {
+        attributes: ["date", "hours", "observations"],
       }
     },
     {
       model: Offer,
       as: "working_offers",
-      attributes: ["id", "name", "code", "number", "codification"],
+      attributes: ["id", "name", "code", "department"],
       through: {
-        attributes: ["roster"],
+        attributes: ["roster", "hours_done"],
       }
     },
     ]
@@ -114,24 +148,43 @@ exports.findByRol = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        User.findByPk(id, { include: ["rol", "projects",
-        {
-          model: Project,
-          as: "working_projects",
-          attributes: ["id", "name", "code"],
-          through: {
-            attributes: [],
-          }
-        },
-        {
-          model: Offer,
-          as: "working_offers",
-          attributes: ["id", "name", "code", "number", "codification"],
-          through: {
-            attributes: ["roster"],
-          }
-        },
-      ] })
+        User.findByPk(id, { 
+          include: [{
+            model: Project,
+            as: "projects",
+            attributes: [ "id", "name", "code"],
+          },
+          {
+            model: Offer,
+            as: "offers",
+            attributes: [ "id", "name", "code"],
+          },
+          {
+            model: Project,
+            as: "working_projects",
+            attributes: ["id", "name", "code"],
+            through: {
+              attributes: ["roster", "hours_done"],
+            }
+          },
+          {
+            model: Project,
+            as: "working_projects_load",
+            attributes: ["id", "name", "code"],
+            through: {
+              attributes: ["date", "hours", "observations"],
+            }
+          },
+          {
+            model: Offer,
+            as: "working_offers",
+            attributes: ["id", "name", "code", "department"],
+            through: {
+              attributes: ["roster", "hours_done"],
+            }
+          },
+          ]
+    })
           .then(data => {
             res.send(data);
           })
@@ -146,24 +199,43 @@ exports.findOne = (req, res) => {
 exports.findByUsername = (req, res) => {
   const username = req.params.username;
 
-  User.findAll({where: {username: username}}, { include: ["rol", "projects",
-  {
-    model: Project,
-    as: "working_projects",
-    attributes: ["id", "name", "code"],
-    through: {
-      attributes: [],
-    }
-  },
-  {
-    model: Offer,
-    as: "working_offers",
-    attributes: ["id", "name", "code", "number", "codification"],
-    through: {
-      attributes: ["roster"],
-    }
-  },
-  ] })
+  User.findAll({where: {username: username}}, { 
+    include: [{
+      model: Project,
+      as: "projects",
+      attributes: [ "id", "name", "code"],
+    },
+    {
+      model: Offer,
+      as: "offers",
+      attributes: [ "id", "name", "code"],
+    },
+    {
+      model: Project,
+      as: "working_projects",
+      attributes: ["id", "name", "code"],
+      through: {
+        attributes: ["roster", "hours_done"],
+      }
+    },
+    {
+      model: Project,
+      as: "working_projects_load",
+      attributes: ["id", "name", "code"],
+      through: {
+        attributes: ["date", "hours", "observations"],
+      }
+    },
+    {
+      model: Offer,
+      as: "working_offers",
+      attributes: ["id", "name", "code", "department"],
+      through: {
+        attributes: ["roster", "hours_done"],
+      }
+    },
+    ]
+})
     .then(data => {
       res.send(data);
     })

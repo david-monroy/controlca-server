@@ -2,6 +2,7 @@ const db = require("../models");
 const Offer = db.offers;
 const Offer_User = db.offer_users;
 const User = db.users;
+const Charge = db.charges;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Project
@@ -48,8 +49,9 @@ exports.findAll = (req, res) => {
           attributes: ["id", "name", "lastname"],
           through: {
             attributes: [
-              "roster"
+              "roster", "hours_done", "id", 
             ],
+            
           }
         },
         "leader"
@@ -78,7 +80,7 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name", "lastname"],
             through: {
               attributes: [
-                "roster"
+                "roster", "hours_done"
               ],
             }
           },
@@ -107,7 +109,7 @@ exports.findByLeader = (req, res) => {
       attributes: ["id", "name", "lastname"],
       through: {
         attributes: [
-          "roster"
+          "roster", "hours_done"
         ],
       }
     },

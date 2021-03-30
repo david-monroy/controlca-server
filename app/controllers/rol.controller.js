@@ -1,5 +1,6 @@
 const db = require("../models");
 const Rol = db.rols;
+const User = db.users;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Rol
@@ -34,7 +35,13 @@ exports.create = (req, res) => {
 // Listar todos los roles
 exports.findAll = (req, res) => {
     Rol.findAll({
-      include: ["users"]
+      include: [{
+        model: User,
+        as: "users",
+        attributes: [ "id", "name", "lastname"],
+      },
+
+      ]
     })
       .then(data => {
         res.send(data);

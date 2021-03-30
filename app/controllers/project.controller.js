@@ -3,6 +3,7 @@ const Project = db.projects;
 const Product = db.products;
 const Project_Product = db.project_products;
 const Project_User = db.project_users;
+const Project_User_Load = db.project_user_loads;
 const User = db.users;
 const Op = db.Sequelize.Op;
 
@@ -64,6 +65,17 @@ exports.findAll = (req, res) => {
             ],
           }
         },
+        {
+          model: User,
+          as: "working_users_load",
+          attributes: ["id", "name", "lastname"],
+          through: {
+            attributes: [
+              "date", "hours", "observations"
+            ],
+          }
+        },
+        
         "leader"
       ],
     })
@@ -104,6 +116,16 @@ exports.findOne = (req, res) => {
               ],
             }
           },
+          {
+            model: User,
+            as: "working_users_load",
+            attributes: ["id", "name", "lastname"],
+            through: {
+              attributes: [
+                "date", "hours", "observations"
+              ],
+            }
+          },
           "leader"
         ]
       })
@@ -140,6 +162,16 @@ exports.findByLeader = (req, res) => {
       through: {
         attributes: [
           "roster"
+        ],
+      }
+    },
+    {
+      model: User,
+      as: "working_users_load",
+      attributes: ["id", "name", "lastname"],
+      through: {
+        attributes: [
+          "date", "hours", "observations"
         ],
       }
     },
@@ -333,6 +365,28 @@ exports.deleteAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Ocurrió un error mientras se actualizaba el Project " + id
+      });
+    });
+  };
+
+  exports.loadHour = (req, res) => {
+
+    const lh = {
+      project_id: req.body.project,
+      worker_id: req.body.worker,
+      date: req.body.date,
+      hours: req.body.hours,
+      observations: req.body.observations,
+    }
+
+    Project_User_Load.create(lh)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
       });
     });
   };
