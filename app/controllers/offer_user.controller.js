@@ -1,16 +1,16 @@
 const db = require("../models");
-const Project_User = db.project_users;
+const Offer_User = db.offer_users;
 const User = db.users;
-const Load = db.loads;
+const Load_Offer = db.load_offers;
 const Op = db.Sequelize.Op;
 
 // Listar todos los roles
 exports.findAll = (req, res) => {
-    Project_User.findAll({
+    Offer_User.findAll({
       include: [{
-        model: Load,
-        as: "loads",
-        attributes: [ "id", "date", "hours", "observations", "product_id"],
+        model: Load_Offer,
+        as: "load_offers",
+        attributes: [ "id", "date", "hours", "observations"],
       },
 
       ]
@@ -29,11 +29,11 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
   
-    Project_User.findByPk(id, { 
+    Offer_User.findByPk(id, { 
       include: [{
-        model: Load,
-        as: "loads",
-        attributes: [ "id", "date", "hours", "observations", "product_id"],
+        model: Load_Offer,
+        as: "load_offers",
+        attributes: [ "id", "date", "hours", "observations"],
       },
 
       ]
@@ -52,14 +52,13 @@ exports.findOne = (req, res) => {
 exports.addLoad = (req, res) => {
 
     const load = {
-      project_user_id: req.body.project_user,
+      offer_user_id: req.body.offer_user,
       date: req.body.date,
       hours: req.body.hours,
       observations: req.body.observations,
-      product_id: req.body.product,
     }
 
-    Load.create(load)
+    Load_Offer.create(load)
     .then(data => {
       res.send(data);
     })

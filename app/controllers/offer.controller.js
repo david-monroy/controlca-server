@@ -55,16 +55,6 @@ exports.findAll = (req, res) => {
             
           }
         },
-        {
-          model: User,
-          as: "working_users_load",
-          attributes: ["id", "name", "lastname"],
-          through: {
-            attributes: [
-              "date", "hours", "observations"
-            ],
-          }
-        },
         "leader"
       ],
     })
@@ -236,9 +226,9 @@ exports.deleteAll = (req, res) => {
   exports.addUser = (req, res) => {
 
     const ou = {
-      offer_id: req.body.offer,
+      offer: req.body.offer,
       worker_id: req.body.worker,
-      roster: req.body.roster
+      roster_id: req.body.roster
     }
 
     Offer_User.create(ou)

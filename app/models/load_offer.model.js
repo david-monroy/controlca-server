@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Charge = sequelize.define("charge", {
+    const LoadOffer = sequelize.define("load_offer", {
         date: {
           type: Sequelize.DATEONLY,
           allowNull: false
@@ -10,8 +10,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         observations: {
             type: Sequelize.STRING,
-          }
+          },
       });
   
-    return Charge;
+    return LoadOffer;
   };

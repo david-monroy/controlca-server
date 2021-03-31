@@ -10,7 +10,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         observations: {
             type: Sequelize.STRING,
-          }
+          },
+        product_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
       });
   
     return Load;
