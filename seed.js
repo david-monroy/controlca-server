@@ -8,6 +8,8 @@ const Project_Product = db.project_products;
 const Project_User = db.project_users;
 const Offer = db.offers;
 const Offer_User = db.offer_users;
+const Area = db.areas;
+const Area_Product = db.area_products;
 
 // ROLES
 rolSeed = [
@@ -184,25 +186,55 @@ function insertProducts(productSeed){
         });
     });
 }
-// PRODUCTOS EN PROYECTOS
-productProjectSeed = [
+// AREAS EN PROYECTOS
+areaSeed = [
     { 
-        estimated_hours: 5,
         project_id: 1,
-        product_id: 1,
-        area: "A01",
+        name: "A01",
+    },
+    { 
+        project_id: 1,
+        name: "A02",
     },
 ]
-function insertProductProjects(productProjectSeed){
-    productProjectSeed.forEach(pp => {
+function insertAreas(areaSeed){
+    areaSeed.forEach(area => {
+        var data = {
+            name: area.name,
+            project_id: area.project_id,
+          };
+        
+        Area.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    });
+}
+// PRODUCTOS EN AREAS
+productAreaSeed = [
+    { 
+        estimated_hours: 5,
+        product_id: 1,
+        area_id: 1,
+    },
+    { 
+        estimated_hours: 15,
+        product_id: 1,
+        area_id: 2,
+    },
+]
+function insertProductAreas(productAreaSeed){
+    productAreaSeed.forEach(pp => {
         var data = {
             estimated_hours: pp.estimated_hours,
-            area: pp.area,
-            project_id: pp.project_id,
+            area_id: pp.area_id,
             product_id: pp.product_id,
           };
         
-        Project_Product.create(data)
+        Area_Product.create(data)
         .then(response => {
             console.log(response)
         })
@@ -294,8 +326,9 @@ function insertUserOffers(userOfferSeed){
 insertRoles(rolSeed);
 insertUsers(userSeed);
 insertProjects(projectSeed);
+insertAreas(areaSeed);
 insertProducts(productSeed);
-insertProductProjects(productProjectSeed);
+insertProductAreas(productAreaSeed);
 insertUserProjects(userProjectSeed);
 insertOffers(offerSeed);
 insertUserOffers(userOfferSeed);

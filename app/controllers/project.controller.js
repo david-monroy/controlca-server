@@ -1,7 +1,7 @@
 const db = require("../models");
 const Project = db.projects;
 const Product = db.products;
-const Project_Product = db.project_products;
+const Area = db.areas;
 const Project_User = db.project_users;
 const Project_User_Load = db.project_user_loads;
 const User = db.users;
@@ -46,14 +46,9 @@ exports.findAll = (req, res) => {
     Project.findAll({
       include: [
         {
-          model: Product,
-          as: "products",
-          attributes: ["id", "name", "code"],
-          through: {
-            attributes: [
-              "estimated_hours", "observations", "area"
-            ],
-          }
+          model: Area,
+          as: "project_areas",
+          attributes: ["id", "name"],
         },
         {
           model: User,
@@ -86,15 +81,10 @@ exports.findOne = (req, res) => {
       
         Project.findByPk(id, {
         include: [
-            {
-            model: Product,
-            as: "products",
-            attributes: ["id", "name", "code"],
-            through: {
-              attributes: [
-                "estimated_hours", "observations", "area"
-              ],
-            }
+          {
+            model: Area,
+            as: "project_areas",
+            attributes: ["id", "name"],
           },
           {
             model: User,
@@ -126,15 +116,10 @@ exports.findByLeader = (req, res) => {
 
   Project.findAll({where: {leader_id: leader_id}, 
   include: [
-      {
-      model: Product,
-      as: "products",
-      attributes: ["id", "name", "code"],
-      through: {
-        attributes: [
-          "estimated_hours", "observations", "area"
-        ],
-      }
+    {
+      model: Area,
+      as: "project_areas",
+      attributes: ["id", "name"],
     },
     {
       model: User,
@@ -227,60 +212,7 @@ exports.deleteAll = (req, res) => {
       });
   };
 
-  exports.addProduct = (req, res) => {
-
-    const pp = {
-      project_id: req.body.project,
-      product_id: req.body.product,
-      estimated_hours: req.body.estimated_hours,
-      observations: req.body.observations,
-      area: req.body.area
-    }
-
-    Project_Product.create(pp)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
-      });
-    });
-  };
-
-  exports.updateProduct = (req, res) => {
   
-    const id = req.params.id;
-
-    const pp = {
-      project_id: req.body.project,
-      product_id: req.body.product,
-      estimated_hours: req.body.estimated_hours,
-      observations: req.body.observations,
-      area: req.body.area
-    }
-
-    Project_Product.update(pp, {
-      where: { id: id }
-    })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Project actualizado correctamente."
-        });
-      } else {
-        res.send({
-          message: `No se pudo actualizar el Project con el id=${id}. Es posible que el Project no haya sido encontraodo o la petición esté vacía!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Ocurrió un error mientras se actualizaba el Project " + id
-      });
-    });
-  };
 
   exports.addUser = (req, res) => {
 
@@ -338,6 +270,25 @@ exports.deleteAll = (req, res) => {
     }
 
     Project_User_Load.create(lh)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
+      });
+    });
+  };
+
+  exports.addArea = (req, res) => {
+
+    const area = {
+      project_id: req.body.project,
+      name: req.body.name,
+    }
+
+    Area.create(area)
     .then(data => {
       res.send(data);
     })

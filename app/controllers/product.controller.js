@@ -1,5 +1,6 @@
 const db = require("../models");
 const Product = db.products;
+const Area = db.areas;
 const Project = db.projects;
 const Op = db.Sequelize.Op;
 
@@ -38,11 +39,11 @@ exports.findAll = (req, res) => {
     Product.findAll({
       include: [
         {
-          model: Project,
-          as: "projects",
-          attributes: ["id", "name", "code"],
+          model: Area,
+          as: "areas",
+          attributes: ["id", "name"],
           through: {
-            attributes: [],
+            attributes: ["estimated_hours"],
           },
           // through: {
           //   attributes: ["project_id", "product_id"],
@@ -69,11 +70,11 @@ exports.findOne = (req, res) => {
         Product.findByPk(id, {
           include: [
             {
-              model: Project,
-              as: "projects",
-              attributes: ["id", "name", "code"],
+              model: Area,
+              as: "areas",
+              attributes: ["id", "name"],
               through: {
-                attributes: [],
+                attributes: ["estimated_hours"],
               },
               // through: {
               //   attributes: ["project_id", "product_id"],

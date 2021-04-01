@@ -15,11 +15,8 @@ module.exports = app => {
     // Listar un solo project por líder
     router.get("/leader/:id", projects.findByLeader);
 
-    // Agregar producto a proyecto
-    router.post("/addProduct", projects.addProduct);
-
-    // Actualizar producto a proyecto
-    router.put("/updateProduct/:id", projects.updateProduct);
+    // Agregar area a proyecto
+    router.post("/addArea", projects.addUser);
 
     // Agregar usuario a proyecto
     router.post("/addUser", projects.addUser);
