@@ -10,6 +10,9 @@ module.exports = app => {
     router.get("/:id", areas.findOne);
 
     // Agregar producto a area
+    router.post("/", areas.create);
+
+    // Agregar producto a area
     router.post("/addProduct", areas.addProduct);
 
     // Actualizar producto a area

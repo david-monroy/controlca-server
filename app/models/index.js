@@ -31,6 +31,7 @@ db.project_user_loads = require("./project_user_load.model.js")(sequelize, Seque
 db.offer_user_loads = require("./offer_user_load.model.js")(sequelize, Sequelize);
 db.loads = require("./load.model.js")(sequelize, Sequelize);
 db.load_offers = require("./load_offer.model.js")(sequelize, Sequelize);
+db.load_admins = require("./load_admin.model.js")(sequelize, Sequelize);
 db.areas = require("./area.model.js")(sequelize, Sequelize);
 
 // Relación 1 a Muchos entre Rol y Usuarios
@@ -128,6 +129,12 @@ db.areas.belongsToMany(db.products, {
   foreignKey: "area_id",
 });
 
+// Relación 1 a Muchos entre User y Admin loads
+db.users.hasMany(db.load_admins, { foreignKey: "user_id", as: "load_admins" });
+db.load_admins.belongsTo(db.users, {
+  foreignKey: "user_id",
+  as: "user",
+});
 
 
 module.exports = db;

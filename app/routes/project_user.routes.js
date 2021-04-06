@@ -8,7 +8,12 @@ module.exports = app => {
   
     // Listar todos los Rol
     router.get("/", project_users.findAll);
+
+    // Actualizar un product por id
+    router.put("/:id", project_users.update);
   
-  
+    // Eliminar un product por id
+    router.delete("/:id", project_users.delete);
+
     app.use('/api/project_users', router);
   };

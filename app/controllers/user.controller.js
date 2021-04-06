@@ -3,6 +3,7 @@ const User = db.users;
 const Project = db.projects;
 const Offer = db.offers;
 const Project_User = db.project_users;
+const Load_Admin = db.load_admins;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo User
@@ -69,6 +70,11 @@ exports.findAll = (req, res) => {
           attributes: ["roster", "hours_done"],
         }
       },
+      {
+        model: Load_Admin,
+        as: "load_admins",
+        attributes: [ "type", "initial_date", "final_date", "hours", "observations"],
+      },
       "rol"
       ]
     })
@@ -116,6 +122,11 @@ exports.findByRol = (req, res) => {
         attributes: ["roster", "hours_done"],
       }
     },
+    {
+      model: Load_Admin,
+      as: "load_admins",
+      attributes: [ "type", "initial_date", "final_date", "hours", "observations"],
+    },
     "rol"
     ]
   })
@@ -161,6 +172,11 @@ exports.findOne = (req, res) => {
               attributes: ["roster", "hours_done"],
             }
           },
+          {
+            model: Load_Admin,
+            as: "load_admins",
+            attributes: [ "type", "initial_date", "final_date", "hours", "observations"],
+          },
           "rol"
           ]
     })
@@ -204,6 +220,11 @@ exports.findByUsername = (req, res) => {
       through: {
         attributes: ["roster", "hours_done"],
       }
+    },
+    {
+      model: Load_Admin,
+      as: "load_admins",
+      attributes: [ "type", "initial_date", "final_date", "hours", "observations"],
     },
     "rol"
     ]

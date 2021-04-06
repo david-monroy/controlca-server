@@ -149,7 +149,7 @@ exports.findByLeader = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Project.update(project, {
+    Project.update(req.body, {
       where: { id: id }
     })
       .then(num => {

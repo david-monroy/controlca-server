@@ -48,6 +48,54 @@ exports.findOne = (req, res) => {
       });
 };
 
+// Actualizar un Project por ID
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  Project_User.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Project actualizado correctamente."
+        });
+      } else {
+        res.send({
+          message: `No se pudo actualizar el Project con el id=${id}. Es posible que el Project no haya sido encontraodo o la petición esté vacía!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se actualizaba el Project " + id
+      });
+    });
+};
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Project_User.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Project eliminado correctamente!"
+        });
+      } else {
+        res.send({
+          message: `No se pudo eliminar el Project con el id=${id}. Es posible que el Project no haya sido encontraodo o la petición esté vacía!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Ocurrió un error mientras se actualizaba el Project " + id
+      });
+    });
+};
 
 exports.addLoad = (req, res) => {
 

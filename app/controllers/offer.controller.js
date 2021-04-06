@@ -151,16 +151,7 @@ exports.findByLeader = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    const offer = {
-      name: req.body.name,
-      description: req.body.description,
-      code: req.body.code,
-      number: req.body.number,
-      codification: req.body.codification,
-      leader_id: req.body.leader
-    }
-
-    Offer.update(offer, {
+    Offer.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -226,9 +217,9 @@ exports.deleteAll = (req, res) => {
   exports.addUser = (req, res) => {
 
     const ou = {
-      offer: req.body.offer,
+      offer_id: req.body.offer,
       worker_id: req.body.worker,
-      roster_id: req.body.roster
+      roster: req.body.roster
     }
 
     Offer_User.create(ou)

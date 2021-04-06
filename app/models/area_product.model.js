@@ -7,6 +7,10 @@ module.exports = (sequelize, Sequelize) => {
         observations: {
           type: Sequelize.STRING
         },
+        completed:{
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        }
       });
   
     return Area_Product;
