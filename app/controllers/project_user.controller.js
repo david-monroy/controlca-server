@@ -2,6 +2,7 @@ const db = require("../models");
 const Project_User = db.project_users;
 const User = db.users;
 const Load = db.loads;
+const Bitacora = db.bitacoras;
 const Op = db.Sequelize.Op;
 
 // Listar todos los roles
@@ -12,7 +13,11 @@ exports.findAll = (req, res) => {
         as: "loads",
         attributes: [ "id", "date", "hours", "observations", "product_id"],
       },
-
+      {
+        model: Bitacora,
+        as: "bitacoras",
+        attributes: [ "id", "date",  "note"],
+      },
       ]
     })
       .then(data => {
@@ -35,7 +40,11 @@ exports.findOne = (req, res) => {
         as: "loads",
         attributes: [ "id", "date", "hours", "observations", "product_id"],
       },
-
+      {
+        model: Bitacora,
+        as: "bitacoras",
+        attributes: [ "id", "date", "note"],
+      },
       ]
     })
       .then(data => {
@@ -108,6 +117,26 @@ exports.addLoad = (req, res) => {
     }
 
     Load.create(load)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
+      });
+    });
+  };
+
+  exports.addBitacora = (req, res) => {
+
+    const bitacora = {
+      project_user_id: req.body.project_user,
+      date: req.body.date,
+      note: req.body.note,
+    }
+
+    Bitacora.create(bitacora)
     .then(data => {
       res.send(data);
     })

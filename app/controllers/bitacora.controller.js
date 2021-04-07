@@ -1,53 +1,17 @@
 const db = require("../models");
-const Area = db.areas;
-const Area_Product = db.area_products;
+const Bitacora = db.bitacoras;
 const Project = db.projects;
-const Product = db.products;
 const Offer = db.offers;
+const Project_User = db.project_users;
 const Op = db.Sequelize.Op;
-
-// Crear y guardar un nuevo Area
-exports.create = (req, res) => {
-
-  // Validar
-  if (!req.body.name) {
-    res.status(400).send({
-      message: "¡El nombre no puede estar vacío!"
-    });
-    return;
-  }
-
-  // Crear un Project
-  const area = {
-    name: req.body.name,
-    project_id: req.body.project,
-  };
-
-  // Guardar Project en BD
-  Area.create(area)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
-      });
-    });
-};
 
 // Listar todos los users
 exports.findAll = (req, res) => {
-    Area.findAll({
+    Bitacora.findAll({
       include: [{
-        model: Project,
-        as: "project",
-        attributes: ["id", "code", "name"],
-      },
-      {
-        model: Product,
-        as: "products",
-        attributes: ["id", "code", "name"],
+        model: Project_User,
+        as: "project_user",
+        attributes: ["id", "worker_id", "project_id", "roster"],
       },
       ]
     })
@@ -67,16 +31,11 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        Area.findByPk(id, { 
+        Bitacora.findByPk(id, { 
             include: [{
-                model: Project,
-                as: "project",
-                attributes: ["id", "code", "name"],
-              },
-              {
-                model: Product,
-                as: "products",
-                attributes: ["id", "code", "name"],
+                model: Project_User,
+                as: "project_user",
+                attributes: ["id", "worker_id", "project_id", "roster"],
               },
               ]
     })
@@ -94,7 +53,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Area.update(req.body, {
+    Bitacora.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -119,7 +78,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    Area.destroy({
+    Bitacora.destroy({
       where: { id: id }
     })
       .then(num => {
@@ -142,7 +101,7 @@ exports.delete = (req, res) => {
 
 // Eliminar todos los User
 exports.deleteAll = (req, res) => {
-    Area.destroy({
+    Bitacora.destroy({
       where: {},
       truncate: false
     })
@@ -157,47 +116,3 @@ exports.deleteAll = (req, res) => {
       });
   };
 
-  exports.addProduct = (req, res) => {
-
-    const ap = {
-      area_id: req.body.area,
-      product_id: req.body.product,
-      estimated_hours: req.body.estimated_hours
-    }
-
-    Area_Product.create(ap)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
-      });
-    });
-  };
-
-  exports.updateProduct = (req, res) => {
-  
-    const id = req.params.id;
-
-    Area_Product.update(req.body, {
-      where: { id: id }
-    })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Project actualizado correctamente."
-        });
-      } else {
-        res.send({
-          message: `No se pudo actualizar el Project con el id=${id}. Es posible que el Project no haya sido encontraodo o la petición esté vacía!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Ocurrió un error mientras se actualizaba el Project " + id
-      });
-    });
-  };

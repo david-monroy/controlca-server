@@ -33,6 +33,7 @@ db.loads = require("./load.model.js")(sequelize, Sequelize);
 db.load_offers = require("./load_offer.model.js")(sequelize, Sequelize);
 db.load_admins = require("./load_admin.model.js")(sequelize, Sequelize);
 db.areas = require("./area.model.js")(sequelize, Sequelize);
+db.bitacoras = require("./bitacora.model.js")(sequelize, Sequelize);
 
 // Relación 1 a Muchos entre Rol y Usuarios
 db.rols.hasMany(db.users, { foreignKey: "rol_id", as: "users" });
@@ -134,6 +135,13 @@ db.users.hasMany(db.load_admins, { foreignKey: "user_id", as: "load_admins" });
 db.load_admins.belongsTo(db.users, {
   foreignKey: "user_id",
   as: "user",
+});
+
+// Relación 1 a Muchos entre Project_User y Bitacora
+db.project_users.hasMany(db.bitacoras, { foreignKey: "project_user_id", as: "bitacoras" });
+db.bitacoras.belongsTo(db.project_users, {
+  foreignKey: "project_user_id",
+  as: "project_user",
 });
 
 
