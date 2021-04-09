@@ -5,6 +5,7 @@ const Area = db.areas;
 const Project_User = db.project_users;
 const Project_User_Load = db.project_user_loads;
 const User = db.users;
+const Budget = db.budgets;
 const Op = db.Sequelize.Op;
 
 // Crear y guardar un nuevo Project
@@ -51,6 +52,11 @@ exports.findAll = (req, res) => {
           attributes: ["id", "name"],
         },
         {
+          model: Budget,
+          as: "budgets",
+          attributes: ["id", "area", "price", "paid"],
+        },
+        {
           model: User,
           as: "working_users",
           attributes: ["id", "name", "lastname"],
@@ -87,6 +93,11 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name"],
           },
           {
+            model: Budget,
+            as: "budgets",
+            attributes: ["id", "area", "price", "paid"],
+          },
+          {
             model: User,
             as: "working_users",
             attributes: ["id", "name", "lastname"],
@@ -120,6 +131,11 @@ exports.findByLeader = (req, res) => {
       model: Area,
       as: "project_areas",
       attributes: ["id", "name"],
+    },
+    {
+      model: Budget,
+      as: "budgets",
+      attributes: ["id", "area", "price", "paid"],
     },
     {
       model: User,

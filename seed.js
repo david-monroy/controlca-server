@@ -10,6 +10,7 @@ const Offer = db.offers;
 const Offer_User = db.offer_users;
 const Area = db.areas;
 const Area_Product = db.area_products;
+const Budget = db.budgets;
 
 // ROLES
 rolSeed = [
@@ -268,6 +269,36 @@ function insertUserProjects(userProjectSeed){
         });
     });
 }
+// BUDGETS EN PROYECTOS
+budgetSeed = [
+    { 
+        project_id: 1,
+        area: "Suministro",
+        price: 50
+    },
+    { 
+        project_id: 1,
+        area: "Instalación",
+        price: 75
+    },
+]
+function insertBudgets(budgetSeed){
+    budgetSeed.forEach(budget => {
+        var data = {
+            area: budget.area,
+            project_id: budget.project_id,
+            price: budget.price
+          };
+        
+        Budget.create(data)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    });
+}
 // OFERTAS
 offerSeed = [
     { 
@@ -332,3 +363,4 @@ insertProductAreas(productAreaSeed);
 insertUserProjects(userProjectSeed);
 insertOffers(offerSeed);
 insertUserOffers(userOfferSeed);
+insertBudgets(budgetSeed);
