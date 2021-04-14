@@ -1,47 +1,17 @@
 const db = require("../models");
-const Budget = db.budgets;
-const Area_Product = db.area_products;
-const Project = db.projects;
 const Load_Budget = db.load_budgets;
-const Product = db.products;
+const Project = db.projects;
 const Offer = db.offers;
+const Budget = db.budgets;
 const Op = db.Sequelize.Op;
-
-// Crear y guardar un nuevo Area
-exports.create = (req, res) => {
-
-  // Crear un Project
-  const budget = {
-    area: req.body.area,
-    price: req.body.price,
-    project_id: req.body.project,
-  };
-
-  // Guardar Project en BD
-  Budget.create(budget)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
-      });
-    });
-};
 
 // Listar todos los users
 exports.findAll = (req, res) => {
-    Budget.findAll({
+    Load_Budget.findAll({
       include: [{
-        model: Project,
-        as: "project",
-        attributes: ["id", "code", "name"],
-      },
-      {
-        model: Load_Budget,
-        as: "load_budgets",
-        attributes: ["id", "description", "paid", "budget", "observations", "date", "area"],
+        model: Budget,
+        as: "budgets",
+        attributes: ["id", "area", "price", "project_id"],
       },
       ]
     })
@@ -61,16 +31,11 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
         const id = req.params.id;
       
-        Budget.findByPk(id, { 
+        Load_Budget.findByPk(id, { 
             include: [{
-                model: Project,
-                as: "project",
-                attributes: ["id", "code", "name"],
-              },
-              {
-                model: Load_Budget,
-                as: "load_budgets",
-                attributes: ["id", "description", "paid", "budget", "observations", "date", "area"],
+                model: Budget,
+                as: "budgets",
+                attributes: ["id", "area", "price", "project_id"],
               },
               ]
     })
@@ -88,7 +53,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Budget.update(req.body, {
+    Load_Budget.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -113,7 +78,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    Budget.destroy({
+    Load_Budget.destroy({
       where: { id: id }
     })
       .then(num => {
@@ -136,7 +101,7 @@ exports.delete = (req, res) => {
 
 // Eliminar todos los User
 exports.deleteAll = (req, res) => {
-    Budget.destroy({
+    Load_Budget.destroy({
       where: {},
       truncate: false
     })
@@ -149,29 +114,5 @@ exports.deleteAll = (req, res) => {
             err.message || "Ocurrió un error mientras se eliminaban los Useres."
         });
       });
-  };
-
-  exports.load = (req, res) => {
-
-    const lh = {
-      date: req.body.date,
-      description: req.body.description,
-      observations: req.body.observations,
-      paid: req.body.paid,
-      budget: req.body.budget,
-      budget_id: req.body.budget_id,
-      area: req.body.area,
-    }
-
-    Load_Budget.create(lh)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
-      });
-    });
   };
 

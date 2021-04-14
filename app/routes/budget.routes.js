@@ -11,6 +11,9 @@ module.exports = app => {
 
     // Agregar producto a budget
     router.post("/", budgets.create);
+
+    // Cargar horas a proyecto
+    router.post("/load", budgets.load);
   
     // Actualizar un Rol por id
     router.put("/:id", budgets.update);

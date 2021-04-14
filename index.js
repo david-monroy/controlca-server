@@ -48,6 +48,7 @@ require('./app/routes/area.routes')(app);
 require('./app/routes/load_admin.routes')(app);
 require('./app/routes/bitacora.routes')(app);
 require('./app/routes/budget.routes')(app);
+require('./app/routes/load_budget.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
