@@ -11,6 +11,10 @@ module.exports = (sequelize, Sequelize) => {
         hours_done: {
           type: Sequelize.INTEGER,
           defaultValue: 0
+        },
+        active: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: true
         }
       });
   
