@@ -62,7 +62,7 @@ exports.findAll = (req, res) => {
           attributes: ["id", "name", "lastname"],
           through: {
             attributes: [
-              "roster", "id", "hours_done", "active"
+              "roster", "id", "hours_done", "status"
             ],
           }
         },
@@ -103,7 +103,7 @@ exports.findOne = (req, res) => {
             attributes: ["id", "name", "lastname"],
             through: {
               attributes: [
-                "roster", "id", "hours_done", "active"
+                "roster", "id", "hours_done", "status"
               ],
             }
           },
@@ -143,7 +143,7 @@ exports.findByLeader = (req, res) => {
       attributes: ["id", "name", "lastname"],
       through: {
         attributes: [
-          "roster", "id", "hours_done", "active"
+          "roster", "id", "hours_done", "status"
         ],
       }
     },

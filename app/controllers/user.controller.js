@@ -59,7 +59,7 @@ exports.findAll = (req, res) => {
         as: "working_projects",
         attributes: ["id", "name", "code", "areas", "status"],
         through: {
-          attributes: ["roster", "hours_done","active"],
+          attributes: ["roster", "hours_done","status"],
         }
       },
       {
@@ -111,7 +111,7 @@ exports.findByRol = (req, res) => {
       as: "working_projects",
       attributes: ["id", "name", "code", "areas", "status"],
       through: {
-        attributes: ["roster", "hours_done","active"],
+        attributes: ["roster", "hours_done","status"],
       }
     },
     {
@@ -161,7 +161,7 @@ exports.findOne = (req, res) => {
             as: "working_projects",
             attributes: ["id", "name", "code", "areas", "status"],
             through: {
-              attributes: ["roster", "hours_done","active"],
+              attributes: ["roster", "hours_done","status"],
             }
           },
           {
@@ -210,7 +210,7 @@ exports.findByUsername = (req, res) => {
       as: "working_projects",
       attributes: ["id", "name", "code"],
       through: {
-        attributes: ["roster", "hours_done","active"],
+        attributes: ["roster", "hours_done","status"],
       }
     },
     {
