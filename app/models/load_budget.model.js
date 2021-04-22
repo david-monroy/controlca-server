@@ -15,12 +15,15 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.STRING,
         },
         paid: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT,
             allowNull: false
           },
         budget: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT,
             allowNull: false
+        },
+        status: {
+            type: Sequelize.STRING
         },
       });
   

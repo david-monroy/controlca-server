@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
       {
         model: Load_Budget,
         as: "load_budgets",
-        attributes: ["id", "description", "paid", "budget", "observations", "date", "area"],
+        attributes: ["id", "description", "paid", "budget", "observations", "date", "area", "status"],
       },
       ]
     })
@@ -70,7 +70,7 @@ exports.findOne = (req, res) => {
               {
                 model: Load_Budget,
                 as: "load_budgets",
-                attributes: ["id", "description", "paid", "budget", "observations", "date", "area"],
+                attributes: ["id", "description", "paid", "budget", "observations", "date", "area","status"],
               },
               ]
     })
@@ -161,6 +161,7 @@ exports.deleteAll = (req, res) => {
       budget: req.body.budget,
       budget_id: req.body.budget_id,
       area: req.body.area,
+      status: req.body.status,
     }
 
     Load_Budget.create(lh)

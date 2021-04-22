@@ -133,7 +133,7 @@ productSeed = [
     { 
         id: 4,
         code: "030",
-        name: "Datos"
+        name: "Networking"
     },
     { 
         id: 5,
@@ -246,6 +246,11 @@ function insertProductAreas(productAreaSeed){
 }
 // USUARIOS EN PROYECTOS
 userProjectSeed = [
+    { 
+        roster: "Director",
+        worker_id: 1,
+        project_id: 1
+    },
     { 
         roster: "Gerente",
         worker_id: 2,
