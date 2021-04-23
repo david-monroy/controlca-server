@@ -9,13 +9,13 @@ const app = express();
 const db = require("./app/models");
 // Descomentar si quiero eliminar la BD
 // -------------------------------------
-// db.sequelize.sync({ force: true }).then(() => {
-//     console.log("Drop and re-sync db.");
-//   });
-db.sequelize.sync();
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+  });
+// db.sequelize.sync();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "https://controlca-client.herokuapp.com"
 };
 
 app.use(cors(corsOptions));
