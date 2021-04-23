@@ -1,5 +1,5 @@
-const config = require("../enviroment");
+// const config = require("../enviroment");
 
 module.exports = {
-    secret: config.JWT_KEY
+    secret: 'secretcontrolca'
 }
