@@ -31,7 +31,7 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "¡Usuario no encontrado!" });
       }
 
-      if(user.id > 1) {
+      if(user.id > 3) {
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           user.password
