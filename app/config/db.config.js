@@ -6,8 +6,11 @@ module.exports = {
     PASSWORD: config.DB_PASSWORD,
     DB: config.DB_NAME,
     dialect: config.DBMS,
-    dialectOptions: {
-      "ssl": {"require":true }
+    ssl: true,
+    extra: {
+      ssl: {
+        rejectUnauthorized: false
+      },
     },
     pool: {
       max: 5,
