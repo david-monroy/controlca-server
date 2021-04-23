@@ -1,4 +1,4 @@
-// const config = require("../enviroment");
+const config = require("../enviroment");
 
 module.exports = {
     HOST: config.DB_HOST,
