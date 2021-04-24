@@ -15,7 +15,7 @@ const db = require("./app/models");
 db.sequelize.sync();
 
 var corsOptions = {
-  origin: "http://controlca-client.herokuapp.com"
+  origin: "http://controlca-client.herokuapp.com", "https://controlca-client.herokuapp.com"
 };
 
 
