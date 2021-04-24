@@ -15,8 +15,19 @@ const db = require("./app/models");
 db.sequelize.sync();
 
 var corsOptions = {
-  origin: "http://controlca-client.herokuapp.com", "https://controlca-client.herokuapp.com"
+  origin: [ "http://controlca-client.herokuapp.com", "https://controlca-client.herokuapp.com" ]
 };
+
+// const whitelist = ['http://controlca-client.herokuapp.com', 'http://example2.com']
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+// }
 
 
 app.use(cors(corsOptions));
