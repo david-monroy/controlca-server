@@ -14,13 +14,13 @@ const db = require("./app/models");
 //   });
 db.sequelize.sync();
 
-// var corsOptions = {
-//   origin: [ "http://controlca-client.herokuapp.com", "https://controlca-client.herokuapp.com" ]
-// };
-
 var corsOptions = {
-  origin: "http://localhost:8081" 
+  origin: [ "http://controlca-client.herokuapp.com", "https://controlca-client.herokuapp.com" ]
 };
+
+// var corsOptions = {
+//   origin: "http://localhost:8081" 
+// };
 
 // const whitelist = ['http://controlca-client.herokuapp.com', 'http://example2.com']
 // const corsOptions = {
