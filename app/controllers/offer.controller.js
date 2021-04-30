@@ -1,6 +1,7 @@
 const db = require("../models");
 const Offer = db.offers;
 const Offer_User = db.offer_users;
+const Budget_Offer = db.budget_offers;
 const Offer_User_Load = db.offer_user_loads;
 const User = db.users;
 const Charge = db.charges;
@@ -55,6 +56,11 @@ exports.findAll = (req, res) => {
             
           }
         },
+        {
+          model: Budget_Offer,
+          as: "budget_offers",
+          attributes: ["id", "area", "price", "paid"],
+        },
         "leader"
       ],
     })
@@ -95,6 +101,11 @@ exports.findOne = (req, res) => {
               ],
             }
           },
+          {
+            model: Budget_Offer,
+            as: "budget_offers",
+            attributes: ["id", "area", "price", "paid"],
+          },
         "leader"
         ]
       })
@@ -133,6 +144,11 @@ exports.findByLeader = (req, res) => {
           "date", "hours", "observations"
         ],
       }
+    },
+    {
+      model: Budget_Offer,
+      as: "budget_offers",
+      attributes: ["id", "area", "price", "paid"],
     },
     "leader"
   ]
