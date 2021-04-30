@@ -5,6 +5,9 @@ module.exports = app => {
   
     // Agregar load a project_user
     router.post("/addLoad", offer_users.addLoad);
+
+    // Agregar bitacora a project_user
+    router.post("/addBitacora", offer_users.addBitacora);
   
     // Listar todos los Rol
     router.get("/", offer_users.findAll);

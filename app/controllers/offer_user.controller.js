@@ -1,6 +1,7 @@
 const db = require("../models");
 const Offer_User = db.offer_users;
 const User = db.users;
+const Bitacora_Offer = db.bitacora_offers;
 const Load_Offer = db.load_offers;
 const Op = db.Sequelize.Op;
 
@@ -11,6 +12,11 @@ exports.findAll = (req, res) => {
         model: Load_Offer,
         as: "load_offers",
         attributes: [ "id", "date", "hours", "observations"],
+      },
+      {
+        model: Bitacora_Offer,
+        as: "bitacora_offers",
+        attributes: [ "id", "date",  "note"],
       },
 
       ]
@@ -34,6 +40,11 @@ exports.findOne = (req, res) => {
         model: Load_Offer,
         as: "load_offers",
         attributes: [ "id", "date", "hours", "observations"],
+      },
+      {
+        model: Bitacora_Offer,
+        as: "bitacora_offers",
+        attributes: [ "id", "date",  "note"],
       },
 
       ]
@@ -107,6 +118,26 @@ exports.addLoad = (req, res) => {
     }
 
     Load_Offer.create(load)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Ocurrió un error mientras se guardaba el Project en base de datos."
+      });
+    });
+  };
+
+  exports.addBitacora = (req, res) => {
+
+    const bitacora = {
+      offer_user_id: req.body.offer_user,
+      date: req.body.date,
+      note: req.body.note,
+    }
+
+    Bitacora_Offer.create(bitacora)
     .then(data => {
       res.send(data);
     })

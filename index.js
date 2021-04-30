@@ -14,9 +14,25 @@ const db = require("./app/models");
 //   });
 db.sequelize.sync();
 
+// var corsOptions = {
+//   origin: [ "http://controlca-client.herokuapp.com", "https://controlca-client.herokuapp.com" ]
+// };
+
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8081" 
 };
+
+// const whitelist = ['http://controlca-client.herokuapp.com', 'http://example2.com']
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+// }
+
 
 app.use(cors(corsOptions));
 
@@ -49,6 +65,9 @@ require('./app/routes/load_admin.routes')(app);
 require('./app/routes/bitacora.routes')(app);
 require('./app/routes/budget.routes')(app);
 require('./app/routes/load_budget.routes')(app);
+require('./app/routes/bitacora_offer.routes')(app);
+require('./app/routes/budget_offer.routes')(app);
+require('./app/routes/load_budget_offer.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
