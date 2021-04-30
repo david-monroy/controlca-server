@@ -34,8 +34,11 @@ db.load_offers = require("./load_offer.model.js")(sequelize, Sequelize);
 db.load_admins = require("./load_admin.model.js")(sequelize, Sequelize);
 db.areas = require("./area.model.js")(sequelize, Sequelize);
 db.bitacoras = require("./bitacora.model.js")(sequelize, Sequelize);
+db.bitacora_offers = require("./bitacora_offer.model.js")(sequelize, Sequelize);
 db.budgets = require("./budget.model.js")(sequelize, Sequelize);
 db.load_budgets = require("./load_budget.model.js")(sequelize, Sequelize);
+db.budget_offers = require("./budget_offer.model.js")(sequelize, Sequelize);
+db.load_budget_offers = require("./load_budget_offer.model.js")(sequelize, Sequelize);
 
 // Relación 1 a Muchos entre Rol y Usuarios
 db.rols.hasMany(db.users, { foreignKey: "rol_id", as: "users" });
@@ -146,6 +149,13 @@ db.bitacoras.belongsTo(db.project_users, {
   as: "project_user",
 });
 
+// Relación 1 a Muchos entre Offer_User y Bitacora
+db.offer_users.hasMany(db.bitacora_offers, { foreignKey: "offer_user_id", as: "bitacora_offers" });
+db.bitacora_offers.belongsTo(db.offer_users, {
+  foreignKey: "offer_user_id",
+  as: "offer_user",
+});
+
 // Relación 1 a Muchos entre project y budgets
 db.projects.hasMany(db.budgets, { foreignKey: "project_id", as: "budgets" });
 db.budgets.belongsTo(db.projects, {
@@ -153,11 +163,25 @@ db.budgets.belongsTo(db.projects, {
   as: "project",
 });
 
-// Relación 1 a Muchos entre User y Admin loads
+// Relación 1 a Muchos entre offer y budget_offers
+db.offers.hasMany(db.budget_offers, { foreignKey: "offer_id", as: "budget_offers" });
+db.budget_offers.belongsTo(db.offers, {
+  foreignKey: "offer_id",
+  as: "offer",
+});
+
+// Relación 1 a Muchos entre budget y load_budgets
 db.budgets.hasMany(db.load_budgets, { foreignKey: "budget_id", as: "load_budgets" });
 db.load_budgets.belongsTo(db.budgets, {
   foreignKey: "budget_id",
   as: "budgets",
+});
+
+// Relación 1 a Muchos entre budget y load_budgets
+db.budget_offers.hasMany(db.load_budget_offers, { foreignKey: "budget_offer_id", as: "load_budget_offers" });
+db.load_budget_offers.belongsTo(db.budget_offers, {
+  foreignKey: "budget_offer_id",
+  as: "budget_offers",
 });
 
 module.exports = db;
